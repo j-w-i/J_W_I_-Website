@@ -163,7 +163,7 @@ async function walkTemplates(browser, os, versionCheck, rpathCheck) {
   check(os + ': first template step', (await visibleSteps(page)).join('|') === 'Install Xcode Templates');
   check(os + ': progress = Templates · 1 of 7', (await progress(page)) === 'Templates · 1 of 7', await progress(page));
   const tmpl = await page.$eval('#templates', e => e.textContent);
-  check('templates command intact', tmpl.includes('git clone https://github.com/JWIMaster/iOS-6-Swift-Xcode-Templates.git'));
+  check('templates command intact', tmpl.includes('git clone https://github.com/j-w-i/iOS-6-Swift-Xcode-Templates.git'));
 
   /* 7 template steps → 7 confirm+next ticks land on the finale */
   for (let i = 0; i < 7; i++) await tickConfirm(page, i === 0 ? undefined : true);
