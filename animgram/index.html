@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AnimGram - looping Instagram posts from your photos, on your Mac</title>
+<meta name="description" content="AnimGram is a Mac app that turns your photos into clean white-frame Instagram posts with a looping motion style. One-time purchase, no account, works offline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#161616; --bg2:#1d1d1d; --line:#2e2e2e; --text:#ecebe8; --muted:#a8a6a1; --accent:#ff6b2b; --paper:#f4f2ee;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif; --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+h1,h2,.sub{overflow-wrap:break-word}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+@media(min-width:720px){.wrap{padding:0 32px}}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.mark{font:500 20px var(--serif);letter-spacing:.01em;text-decoration:none}
+.mark i{font-style:normal;color:var(--accent)}
+nav a{font-size:14px;color:var(--muted);text-decoration:none;margin-left:22px}
+nav a:hover{color:var(--text)}
+.hero{padding:56px 0 40px;display:grid;gap:48px;grid-template-columns:minmax(0,1fr)}.hero>*{min-width:0}
+@media(min-width:900px){.hero{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;padding:96px 0 72px}}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 20px}
+h1{font:400 clamp(38px,6vw,68px)/1.06 var(--serif);letter-spacing:-.015em;margin:0 0 24px}
+h1 em{font-style:italic;color:var(--accent)}
+.sub{font-size:19px;color:var(--muted);max-width:34em;margin:0 0 32px}
+.cta-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.btn{display:inline-block;background:var(--accent);color:#161616;font-weight:600;text-decoration:none;padding:15px 24px;border-radius:2px;font-size:16px}
+.btn:hover{background:#ff8450}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn.ghost{background:none;color:var(--text);border:1px solid #555}
+.btn.ghost:hover{border-color:var(--text)}
+.fine{font-size:14px;color:var(--muted);margin:14px 0 0}
+/* demo frame */
+.demo{position:relative;aspect-ratio:4/5;background:var(--bg2);border:1px solid var(--line);overflow:hidden;max-width:460px;width:100%;margin:0 auto}
+.demo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ph{position:absolute;inset:0;display:block;background:#fff;padding:3%;}
+.demo.ready .ph{display:none}
+.demo video{z-index:1}
+.ph .g{display:grid;gap:3%;height:100%;grid-template-columns:1fr 1fr 1fr;animation:pan 8s ease-in-out infinite alternate}
+.ph .g span{background:linear-gradient(160deg,#6d7a80,#2f3a40);display:block}
+.ph .g span:nth-child(2){background:linear-gradient(200deg,#a9a095,#4a4239)}
+.ph .g span:nth-child(3){background:linear-gradient(120deg,#8a6f5a,#31261e)}
+@keyframes pan{from{grid-template-columns:1fr 1fr 1fr}to{grid-template-columns:.6fr 1.5fr .9fr}}
+.ph p{position:absolute;left:0;right:0;bottom:14px;margin:0;text-align:center;font-size:12px;color:#555;letter-spacing:.08em;text-transform:uppercase}
+.cap{font-size:13px;color:var(--muted);margin:12px 0 0;text-align:center}
+section{padding:72px 0;border-top:1px solid var(--line)}
+h2{font:400 clamp(30px,4vw,44px)/1.12 var(--serif);letter-spacing:-.01em;margin:0 0 16px}
+.lede{color:var(--muted);max-width:36em;margin:0 0 40px}
+.reel{display:grid;gap:32px}
+@media(min-width:720px){.reel{grid-template-columns:repeat(3,1fr)}}
+.steps{display:grid;gap:32px;list-style:none;margin:0;padding:0;counter-reset:s}
+@media(min-width:800px){.steps{grid-template-columns:repeat(4,1fr)}}
+.steps li{counter-increment:s;border-top:1px solid #555;padding-top:16px}
+.steps li::before{content:"0" counter(s);font:italic 400 15px var(--serif);color:var(--accent)}
+.steps h3{font:500 21px var(--serif);margin:6px 0 8px}
+.steps p{margin:0;color:var(--muted);font-size:16px}
+.feat{display:grid;gap:0 48px;list-style:none;padding:0;margin:0}
+@media(min-width:800px){.feat{grid-template-columns:1fr 1fr}}
+.feat li{padding:18px 0;border-bottom:1px solid var(--line)}
+.feat b{display:block;font-weight:600;margin-bottom:2px}
+.feat span{color:var(--muted);font-size:16px}
+.soon{font-size:14px;color:var(--muted);margin-top:24px}
+.price{background:var(--paper);color:#1b1b1b;padding:36px 24px;max-width:560px}
+@media(min-width:600px){.price{padding:48px}}
+.price .amt{font:400 64px/1 var(--serif);margin:8px 0 4px}
+.price .amt small{font:400 18px var(--sans);color:#555;margin-left:8px}
+.price .then{margin:0 0 24px;color:#444}
+.price ul{margin:0 0 28px;padding:0;list-style:none}
+.price li{padding:9px 0 9px 22px;border-top:1px solid #ddd;position:relative;font-size:16px}
+.price li::before{content:"";position:absolute;left:0;top:18px;width:8px;height:8px;background:var(--accent)}
+.price .btn{display:block;text-align:center}
+.price .fine{color:#555}
+details{border-top:1px solid var(--line);padding:18px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font:500 20px var(--serif);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent)}
+details[open] summary::after{content:"\2212"}
+details p{color:var(--muted);margin:12px 0 0;max-width:42em;font-size:16px}
+footer{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--muted);font-size:14px}
+footer .cols{display:grid;gap:24px}
+@media(min-width:720px){footer .cols{grid-template-columns:1.4fr 1fr 1fr}}
+footer a{color:var(--text)}
+footer p{margin:0 0 6px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ph .g{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <a class="mark" href="#">Anim<i>Gram</i></a>
+  <nav aria-label="Main"><a href="#how">How it works</a><a href="#price">Price</a><a href="#faq">FAQ</a></nav>
+</header>
+
+<main>
+<div class="hero">
+  <div>
+    <p class="eyebrow">A Mac app for photographers</p>
+    <h1>Your photos, framed and <em>quietly moving</em>.</h1>
+    <p class="sub">Build Instagram posts from your own photos in clean white frames, add a looping motion style, and export MP4 or stills. One payment. No account. Works offline.</p>
+    <div class="cta-row">
+      <a class="btn" href="#pricing">Get AnimGram &mdash; A$9 founding price</a>
+      <a class="btn ghost" href="#motion">See it in motion</a>
+    </div>
+    <p class="fine">First 50 buyers, then A$19. Early access for macOS 13 or later (to be confirmed).</p>
+  </div>
+  <figure style="margin:0">
+    <div class="demo" data-demo>
+      <video autoplay muted loop playsinline preload="metadata" poster="assets/poster-1.jpg" aria-label="Blue Mountains, golden hour: three photos of golden sandstone cliffs and green valleys in white frames, drifting calmly in a seamless loop">
+        <source src="assets/demo-1.mp4" type="video/mp4">
+      </video>
+      <div class="ph" role="img" aria-label="Placeholder: three photo frames in white gutters"><div class="g"><span></span><span></span><span></span></div><p>Demo video coming</p></div>
+    </div>
+    <figcaption class="cap">Blue Mountains, golden hour. Three photos, calm drift. All demo photos are the maker's own.</figcaption>
+  </figure>
+</div>
+
+<section id="motion">
+  <p class="eyebrow">In motion</p>
+  <h2>Three posts, each one loops.</h2>
+  <p class="lede">Slow pans, frames that gently flex and trade space, and bouncy frame moves. The last frame meets the first, so the post can run all day without a visible seam.</p>
+  <div class="reel">
+    <figure style="margin:0">
+      <div class="demo" data-demo>
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/poster-1.jpg" aria-label="Blue Mountains, golden hour: three-photo layout of sandstone cliffs and valleys, calm drift in a seamless loop"><source src="assets/demo-1.mp4" type="video/mp4"></video>
+        <div class="ph" role="img" aria-label="Placeholder for the Blue Mountains, golden hour demo"><div class="g"><span></span><span></span><span></span></div><p>Demo video coming</p></div>
+      </div>
+      <figcaption class="cap">Blue Mountains, golden hour: three photos, calm drift</figcaption>
+    </figure>
+    <figure style="margin:0">
+      <div class="demo" data-demo>
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/poster-2.jpg" aria-label="After rain: a 2 by 2 grid of rainy night street lamps in Canberra, frames gently flexing in a loop"><source src="assets/demo-2.mp4" type="video/mp4"></video>
+        <div class="ph" role="img" aria-label="Placeholder for the After rain demo"><div class="g"><span></span><span></span><span></span></div><p>Demo video coming</p></div>
+      </div>
+      <figcaption class="cap">After rain: 2x2 grid, frames that gently flex</figcaption>
+    </figure>
+    <figure style="margin:0">
+      <div class="demo" data-demo>
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/poster-3.jpg" aria-label="Canberra skies: a two-slide carousel, Telstra Tower at dusk and storm clouds, in a loop"><source src="assets/demo-3.mp4" type="video/mp4"></video>
+        <div class="ph" role="img" aria-label="Placeholder for the Canberra skies carousel demo"><div class="g"><span></span><span></span><span></span></div><p>Demo video coming</p></div>
+      </div>
+      <figcaption class="cap">Canberra skies: a two-slide carousel. All photos are the maker's own, no stock.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="how">
+  <p class="eyebrow">How it works</p>
+  <h2>Four steps, about two minutes.</h2>
+  <ol class="steps" style="margin-top:40px">
+    <li><h3>Pick a layout</h3><p>From one to eight photos, with thin white gutters and square corners.</p></li>
+    <li><h3>Drop your photos</h3><p>Add several at once. They fill the frames in order; swap and recompose as you like.</p></li>
+    <li><h3>Choose a motion</h3><p>Preview a style on your own photos, then set the speed and intensity.</p></li>
+    <li><h3>Export</h3><p>MP4 for the moving post, JPG or PNG for stills, at the sizes Instagram uses.</p></li>
+  </ol>
+</section>
+
+<section id="features">
+  <p class="eyebrow">What is in it</p>
+  <h2>Made for photographs.</h2>
+  <ul class="feat" style="margin-top:40px">
+    <li><b>Clean white-frame layouts</b><span>1 to 8 photos, thin white gutters, square corners.</span></li>
+    <li><b>Looping motion styles</b><span>Slow pans, frames that gently flex and trade space, and bouncy frame moves.</span></li>
+    <li><b>Three sizes</b><span>1080&times;1350 (4:5), 1080&times;1080 and 1080&times;1920.</span></li>
+    <li><b>MP4 video or stills</b><span>Export an MP4, or JPG and PNG stills.</span></li>
+    <li><b>Multi-slide carousels</b><span>Build several slides in one post and export them together.</span></li>
+    <li><b>Keyframe timeline</b><span>For when you want to fine-tune a move. Out of your way until you need it.</span></li>
+    <li><b>Local files, no account</b><span>Your photos stay on your Mac. No sign-up, no subscription.</span></li>
+    <li><b>Personal and commercial use</b><span>Post your own work or client and brand work.</span></li>
+  </ul>
+  <p class="soon">In progress, not in the current build: music in exports and GIF export. They are planned for early access updates and may change.</p>
+</section>
+
+<section id="price">
+  <p class="eyebrow">Price</p>
+  <h2>Pay once.</h2>
+  <div class="price" style="margin-top:32px">
+    <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#555">Founding licence</div>
+    <div class="amt">A$9<small>one-time</small></div>
+    <p class="then">For the first 50 buyers, then A$19 one-time.</p>
+    <ul>
+      <li>All 1.x updates</li>
+      <li>Personal and commercial use, including client and brand work</li>
+      <li>One licence for one person, on up to 2 Macs</li>
+      <li>No account, no subscription</li>
+      <li>14-day no-questions refund</li>
+    </ul>
+    <a class="btn" href="#pricing">Get AnimGram &mdash; A$9 founding price</a>
+    <p class="fine">Checkout opens shortly.</p>
+    <p class="fine">Early access: expect rough edges. Sold by Lemon Squeezy, who handle payment and sales tax. Prices in Australian dollars. Your <a href="refunds.html">refund rights</a> under the Australian Consumer Law are not limited.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <p class="eyebrow">Questions</p>
+  <h2>Before you buy.</h2>
+  <div style="margin-top:32px">
+  <details><summary>What do I need to run it?</summary><p>A Mac running macOS 13 or later (to be confirmed). The first build is for Apple-silicon Macs; Intel support is to be confirmed. It is a Mac app, not a phone app.</p></details>
+  <details><summary>What does early access mean?</summary><p>The core workflow works, but you should expect rough edges and the odd bug. Music in exports and GIF export are still in progress. Buying now gets you the founding price and a say in what we fix first.</p></details>
+  <details><summary>What if macOS warns me when I open it?</summary><p>Until the app is notarised by Apple, macOS may ask you to approve it once in System Settings. The install guide explains the steps. If you would rather not, you can take the refund.</p></details>
+  <details><summary>Can I get a refund?</summary><p>Yes. Ask within 14 days, no questions asked. This does not limit your rights under the Australian Consumer Law. See the <a href="refunds.html">refund policy</a>.</p></details>
+  <details><summary>What does the licence cover?</summary><p>One licence is for one person, on up to 2 Macs. You may use the output for personal and commercial work, including client and brand posts. All 1.x updates are included. Read the full <a href="licence.html">licence</a>.</p></details>
+  <details><summary>What about my privacy?</summary><p>AnimGram works offline. There is no account and no tracking, and your photos stay on your Mac. This site has no analytics either.</p></details>
+  <details><summary>Why not use Instagram's free tools?</summary><p>They are good, and if they do what you need, use them. AnimGram is for people who want precise control of a clean photographic layout, work from full-size files on a desktop, and want MP4 and still files they keep, without a subscription.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="cols">
+    <div><p><strong style="color:var(--text);font-family:var(--serif);font-weight:500;font-size:18px">AnimGram</strong></p><p>&copy; Joshua Walraven (sole trader).</p><p>Payments handled by Lemon Squeezy as merchant of record.</p></div>
+    <div><p><a href="licence.html">Licence</a></p><p><a href="refunds.html">Refund policy</a></p></div>
+    <div><p><a href="mailto:hello@j-w-i.org">hello@j-w-i.org</a></p><p><a href="mailto:hello@j-w-i.org?subject=AnimGram%20feedback">Send feedback</a></p></div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-demo]').forEach(function(box){
+    var v = box.querySelector('video'), s = v.querySelector('source');
+    function ok(){ box.classList.add('ready'); }
+    v.addEventListener('loadeddata', ok);
+    if (v.readyState >= 2) ok();
+    if (reduce){ v.removeAttribute('autoplay'); v.pause(); v.controls = true; }
+  });
+})();
+</script>
+</body>
+</html>
