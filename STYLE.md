@@ -305,3 +305,12 @@ extra boxes; code scrolls within a bounded editor. Step motion uses small fades
 and vertical movement; confirmations retain the original green button and check. Secondary buttons
 have a subtle bevel and contact shadow, and choices retain their original
 selection controls. The shared site masthead retains its geometry.
+
+Home sections and the main home index have matching decorative SVG icons for
+code, colour, photography and contact. Guide choices use device/project icons, warm inset radio indicators and
+clear keyboard focus. Downloads share one continuous list with SVG download
+marks, secondary source text and a directional cue. Next and Back are unchanged.
+
+Home index anchor links reserve the measured sticky masthead height plus 20px
+above the destination heading, so desktop and stacked mobile menus cannot cover
+it. Native hash navigation retains history and reduced-motion behavior.
