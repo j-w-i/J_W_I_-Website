@@ -3,236 +3,404 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AnimGram - looping Instagram posts from your photos, on your Mac</title>
-<meta name="description" content="AnimGram is a Mac app that turns your photos into clean white-frame Instagram posts with a looping motion style. One-time purchase, no account, works offline.">
+<title>AnimGram: looping Instagram posts from your photos, on your Mac</title>
+<meta name="description" content="AnimGram is a Mac app that turns your photos into clean white-frame Instagram posts that loop, and into Reels that follow the beat. One-time purchase, no account, works offline.">
+<meta name="theme-color" content="#0d0c0b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#161616; --bg2:#1d1d1d; --line:#2e2e2e; --text:#ecebe8; --muted:#a8a6a1; --accent:#ff6b2b; --paper:#f4f2ee;
-  --serif:'Fraunces',Georgia,'Times New Roman',serif; --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:inherit}
-h1,h2,.sub{overflow-wrap:break-word}
-.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
-@media(min-width:720px){.wrap{padding:0 32px}}
-header.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
-.mark{font:500 20px var(--serif);letter-spacing:.01em;text-decoration:none}
-.mark i{font-style:normal;color:var(--accent)}
-nav a{font-size:14px;color:var(--muted);text-decoration:none;margin-left:22px}
-nav a:hover{color:var(--text)}
-.hero{padding:56px 0 40px;display:grid;gap:48px;grid-template-columns:minmax(0,1fr)}.hero>*{min-width:0}
-@media(min-width:900px){.hero{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;padding:96px 0 72px}}
-.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 20px}
-h1{font:400 clamp(38px,6vw,68px)/1.06 var(--serif);letter-spacing:-.015em;margin:0 0 24px}
-h1 em{font-style:italic;color:var(--accent)}
-.sub{font-size:19px;color:var(--muted);max-width:34em;margin:0 0 32px}
-.cta-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
-.btn{display:inline-block;background:var(--accent);color:#161616;font-weight:600;text-decoration:none;padding:15px 24px;border-radius:2px;font-size:16px}
-.btn:hover{background:#ff8450}
-.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.btn.ghost{background:none;color:var(--text);border:1px solid #555}
-.btn.ghost:hover{border-color:var(--text)}
-.fine{font-size:14px;color:var(--muted);margin:14px 0 0}
-/* demo frame */
-.demo{position:relative;aspect-ratio:4/5;background:var(--bg2);border:1px solid var(--line);overflow:hidden;max-width:460px;width:100%;margin:0 auto}
-.demo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.ph{position:absolute;inset:0;display:block;background:#fff;padding:3%;}
-.demo.ready .ph{display:none}
-.demo video{z-index:1}
-.ph .g{display:grid;gap:3%;height:100%;grid-template-columns:1fr 1fr 1fr;animation:pan 8s ease-in-out infinite alternate}
-.ph .g span{background:linear-gradient(160deg,#6d7a80,#2f3a40);display:block}
-.ph .g span:nth-child(2){background:linear-gradient(200deg,#a9a095,#4a4239)}
-.ph .g span:nth-child(3){background:linear-gradient(120deg,#8a6f5a,#31261e)}
-@keyframes pan{from{grid-template-columns:1fr 1fr 1fr}to{grid-template-columns:.6fr 1.5fr .9fr}}
-.ph p{position:absolute;left:0;right:0;bottom:14px;margin:0;text-align:center;font-size:12px;color:#555;letter-spacing:.08em;text-transform:uppercase}
-.cap{font-size:13px;color:var(--muted);margin:12px 0 0;text-align:center}
-section{padding:72px 0;border-top:1px solid var(--line)}
-h2{font:400 clamp(30px,4vw,44px)/1.12 var(--serif);letter-spacing:-.01em;margin:0 0 16px}
-.lede{color:var(--muted);max-width:36em;margin:0 0 40px}
-.reel{display:grid;gap:32px}
-@media(min-width:720px){.reel{grid-template-columns:repeat(3,1fr)}}
-.steps{display:grid;gap:32px;list-style:none;margin:0;padding:0;counter-reset:s}
-@media(min-width:800px){.steps{grid-template-columns:repeat(4,1fr)}}
-.steps li{counter-increment:s;border-top:1px solid #555;padding-top:16px}
-.steps li::before{content:"0" counter(s);font:italic 400 15px var(--serif);color:var(--accent)}
-.steps h3{font:500 21px var(--serif);margin:6px 0 8px}
-.steps p{margin:0;color:var(--muted);font-size:16px}
-.feat{display:grid;gap:0 48px;list-style:none;padding:0;margin:0}
-@media(min-width:800px){.feat{grid-template-columns:1fr 1fr}}
-.feat li{padding:18px 0;border-bottom:1px solid var(--line)}
-.feat b{display:block;font-weight:600;margin-bottom:2px}
-.feat span{color:var(--muted);font-size:16px}
-.soon{font-size:14px;color:var(--muted);margin-top:24px}
-.price{background:var(--paper);color:#1b1b1b;padding:36px 24px;max-width:560px}
-@media(min-width:600px){.price{padding:48px}}
-.price .amt{font:400 64px/1 var(--serif);margin:8px 0 4px}
-.price .amt small{font:400 18px var(--sans);color:#555;margin-left:8px}
-.price .then{margin:0 0 24px;color:#444}
-.price ul{margin:0 0 28px;padding:0;list-style:none}
-.price li{padding:9px 0 9px 22px;border-top:1px solid #ddd;position:relative;font-size:16px}
-.price li::before{content:"";position:absolute;left:0;top:18px;width:8px;height:8px;background:var(--accent)}
-.price .btn{display:block;text-align:center}
-.price .fine{color:#555}
-details{border-top:1px solid var(--line);padding:18px 0}
-details:last-of-type{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;font:500 20px var(--serif);list-style:none;display:flex;justify-content:space-between;gap:16px}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";color:var(--accent)}
-details[open] summary::after{content:"\2212"}
-details p{color:var(--muted);margin:12px 0 0;max-width:42em;font-size:16px}
-footer{border-top:1px solid var(--line);padding:40px 0 56px;color:var(--muted);font-size:14px}
-footer .cols{display:grid;gap:24px}
-@media(min-width:720px){footer .cols{grid-template-columns:1.4fr 1fr 1fr}}
-footer a{color:var(--text)}
-footer p{margin:0 0 6px}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ph .g{animation:none}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/loop-mountains.jpg" fetchpriority="high">
+<link rel="stylesheet" href="site.css">
+<script>document.documentElement.className+=' js';</script>
 </head>
 <body>
-<div class="wrap">
-<header class="top">
-  <a class="mark" href="#">Anim<i>Gram</i></a>
-  <nav aria-label="Main"><a href="#how">How it works</a><a href="#price">Price</a><a href="#faq">FAQ</a></nav>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="AnimGram, back to top">Anim<i>Gram</i></a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#motion">Motion</a><a href="#editor">Editor</a><a href="#film">Film</a><a href="#music">Music</a><a href="#price">Price</a><a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn sm" href="#price" data-buy>Get AnimGram</a>
+  </div>
 </header>
 
-<main>
-<div class="hero">
-  <div>
-    <p class="eyebrow">A Mac app for photographers</p>
-    <h1>Your photos, framed and <em>quietly moving</em>.</h1>
-    <p class="sub">Build Instagram posts from your own photos in clean white frames, add a looping motion style, and export MP4 or stills. One payment. No account. Works offline.</p>
-    <div class="cta-row">
-      <a class="btn" href="#price">Get AnimGram &mdash; A$9 founding price</a>
-      <a class="btn ghost" href="#motion">See it in motion</a>
+<main id="main">
+
+<!-- 1. HERO ------------------------------------------------------------>
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">A Mac app for photographers</p>
+        <h1>Your photos, framed and <em>quietly moving.</em></h1>
+        <p class="lede">AnimGram turns your photos into white-framed Instagram posts that loop, and into Reels that follow the beat. Made on your Mac. Paid for once.</p>
+        <div class="cta-row">
+          <a class="btn" href="#price" data-buy>Get AnimGram: A$9 founding price</a>
+          <a class="btn ghost" href="#motion">See the work</a>
+        </div>
+        <p class="fine">A$9 for the first 50 buyers, then A$19 once. macOS 13.3 or later, Apple silicon and Intel.</p>
+      </div>
+      <figure class="plate">
+        <div class="frame">
+          <video autoplay muted loop playsinline preload="auto" poster="assets/loop-mountains.jpg" aria-label="Blue Mountains, golden hour: three photographs of sandstone cliffs and green valleys in white frames, drifting in a seamless loop"><source src="assets/loop-mountains.mp4" type="video/mp4"></video>
+        </div>
+        <figcaption class="cap"><b>Plate 01</b>Blue Mountains, golden hour. Three photos, one calm loop, exported from AnimGram. All photographs are the maker's own.</figcaption>
+      </figure>
     </div>
-    <p class="fine">First 50 buyers, then A$19. Early access for macOS 13.3 or later, Apple silicon and Intel.</p>
-  </div>
-  <figure style="margin:0">
-    <div class="demo" data-demo>
-      <video autoplay muted loop playsinline preload="metadata" poster="assets/poster-1.jpg" aria-label="Blue Mountains, golden hour: three photos of golden sandstone cliffs and green valleys in white frames, drifting calmly in a seamless loop">
-        <source src="assets/demo-1.mp4" type="video/mp4">
-      </video>
-      <div class="ph" role="img" aria-label="Placeholder: three photo frames in white gutters"><div class="g"><span></span><span></span><span></span></div><p>Demo video coming</p></div>
+
+    <div class="proof reveal">
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><span><b>Notarised by Apple</b>Opens like any app you download</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><span><b>Works offline</b>Nothing leaves your Mac</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/><path d="M3 3l18 18"/></svg><span><b>No account, no tracking</b>Not in the app, not on this site</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12l9-9h8v8l-9 9z"/><circle cx="15.5" cy="8.5" r="1.2"/></svg><span><b>Pay once</b>All 1.x updates, no subscription</span></li>
+      </ul>
     </div>
-    <figcaption class="cap">Blue Mountains, golden hour. Three photos, calm drift. All demo photos are the maker's own.</figcaption>
-  </figure>
-</div>
+  </div>
+  <div style="height:clamp(56px,8vw,120px)"></div>
+</section>
 
-<section id="motion">
-  <p class="eyebrow">In motion</p>
-  <h2>Three posts, each one loops.</h2>
-  <p class="lede">Slow pans, frames that gently flex and trade space, and bouncy frame moves. The last frame meets the first, so the post can run all day without a visible seam.</p>
-  <div class="reel">
-    <figure style="margin:0">
-      <div class="demo" data-demo>
-        <video autoplay muted loop playsinline preload="metadata" poster="assets/poster-1.jpg" aria-label="Blue Mountains, golden hour: three-photo layout of sandstone cliffs and valleys, calm drift in a seamless loop"><source src="assets/demo-1.mp4" type="video/mp4"></video>
-        <div class="ph" role="img" aria-label="Placeholder for the Blue Mountains, golden hour demo"><div class="g"><span></span><span></span><span></span></div><p>Demo video coming</p></div>
+<!-- 2. THE FEED -------------------------------------------------------->
+<section class="sec dark alt" id="feed">
+  <div class="wrap">
+    <div class="feed-head">
+      <div class="reveal">
+        <p class="eyebrow">In the feed</p>
+        <h2>A feed of stills. Then one that <em>quietly moves.</em></h2>
       </div>
-      <figcaption class="cap">Blue Mountains, golden hour: three photos, calm drift</figcaption>
-    </figure>
-    <figure style="margin:0">
-      <div class="demo" data-demo>
-        <video autoplay muted loop playsinline preload="metadata" poster="assets/poster-2.jpg" aria-label="After rain: a 2 by 2 grid of rainy night street lamps in Canberra, frames gently flexing in a loop"><source src="assets/demo-2.mp4" type="video/mp4"></video>
-        <div class="ph" role="img" aria-label="Placeholder for the After rain demo"><div class="g"><span></span><span></span><span></span></div><p>Demo video coming</p></div>
+      <p class="body reveal" style="--d:.1s">Our opinion, not a statistic: motion catches the eye. We make no promises about reach, because nobody honestly can. What we can promise is a post that looks like you made it on purpose.</p>
+    </div>
+
+    <div class="phones" role="group" aria-label="Three example phone feeds, each showing an AnimGram loop">
+      <div class="phone l reveal" data-parallax="0.04">
+        <div class="bezel"><div class="screen"><span class="notch"></span><div class="f-top"></div>
+          <div class="f-card-h"><i></i>yourname<span>···</span></div>
+          <div class="f-media"><video data-src="assets/loop-tower.mp4" data-poster="assets/loop-tower.jpg" muted loop playsinline preload="none" aria-label="A tall tower against blue sky in a white frame, slowly zooming in a loop"></video></div>
+          <div class="f-row"><i></i><i></i><i></i></div><div class="f-line"></div><div class="f-line s"></div>
+          <div class="f-card-h f-next"><i></i>yourname<span>···</span></div>
+          <div class="f-media f-peek"><img src="assets/loop-skies.jpg" alt="" loading="lazy" width="864" height="1080"></div>
+        </div></div>
       </div>
-      <figcaption class="cap">After rain: 2x2 grid, frames that gently flex</figcaption>
-    </figure>
-    <figure style="margin:0">
-      <div class="demo" data-demo>
-        <video autoplay muted loop playsinline preload="metadata" poster="assets/poster-3.jpg" aria-label="Canberra skies: a two-slide carousel, Telstra Tower at dusk and storm clouds, in a loop"><source src="assets/demo-3.mp4" type="video/mp4"></video>
-        <div class="ph" role="img" aria-label="Placeholder for the Canberra skies carousel demo"><div class="g"><span></span><span></span><span></span></div><p>Demo video coming</p></div>
+      <div class="phone c reveal" style="--d:.12s" data-parallax="-0.02">
+        <div class="bezel"><div class="screen"><span class="notch"></span><div class="f-top"></div>
+          <div class="f-card-h"><i></i>yourname<span>···</span></div>
+          <div class="f-media"><video data-src="assets/loop-six.mp4" data-poster="assets/loop-six.jpg" muted loop playsinline preload="none" aria-label="Six photographs in a white-framed grid gliding gently in a loop"></video></div>
+          <div class="f-row"><i></i><i></i><i></i></div><div class="f-line"></div><div class="f-line s"></div>
+          <div class="f-card-h f-next"><i></i>yourname<span>···</span></div>
+          <div class="f-media f-peek"><img src="assets/loop-rain.jpg" alt="" loading="lazy" width="864" height="1080"></div>
+        </div></div>
       </div>
-      <figcaption class="cap">Canberra skies: a two-slide carousel. All photos are the maker's own, no stock.</figcaption>
-    </figure>
+      <div class="phone r reveal" style="--d:.24s" data-parallax="0.05">
+        <div class="bezel"><div class="screen"><span class="notch"></span><div class="f-top"></div>
+          <div class="f-card-h"><i></i>yourname<span>···</span></div>
+          <div class="f-media"><video data-src="assets/loop-lamps.mp4" data-poster="assets/loop-lamps.jpg" muted loop playsinline preload="none" aria-label="A hero photograph of a dusk sky above three smaller night photographs, frames bouncing in a loop"></video></div>
+          <div class="f-row"><i></i><i></i><i></i></div><div class="f-line"></div><div class="f-line s"></div>
+          <div class="f-card-h f-next"><i></i>yourname<span>···</span></div>
+          <div class="f-media f-peek"><img src="assets/loop-mountains.jpg" alt="" loading="lazy" width="960" height="1200"></div>
+        </div></div>
+      </div>
+    </div>
+    <p class="fine reveal" style="text-align:center;margin-top:12px">Generic phone mock-ups. The loops are real exports from AnimGram.</p>
   </div>
 </section>
 
-<section id="how">
-  <p class="eyebrow">How it works</p>
-  <h2>Four steps, about two minutes.</h2>
-  <ol class="steps" style="margin-top:40px">
-    <li><h3>Pick a layout</h3><p>From one to eight photos, with thin white gutters and square corners.</p></li>
-    <li><h3>Drop your photos</h3><p>Add several at once. They fill the frames in order; swap and recompose as you like.</p></li>
-    <li><h3>Choose a motion</h3><p>Preview a style on your own photos, then set the speed and intensity.</p></li>
-    <li><h3>Export</h3><p>MP4 for the moving post, JPG or PNG for stills, at the sizes Instagram uses.</p></li>
-  </ol>
+<!-- 3. WHY ------------------------------------------------------------->
+<section class="sec paper" id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Why pay for this</p>
+      <h2>Free tools are good. This is for a <em>narrower person.</em></h2>
+      <p class="lede">Instagram's own Edits app is free, and Canva has a free tier. If a quick phone collage already does the job, keep using it. People choose AnimGram when they want these three things.</p>
+    </div>
+    <ol class="trio">
+      <li class="reveal"><span class="n">01</span><h3>A look, not a template library</h3><p>Thin white gutters, square corners, one to eight photos. The layouts and the motion are tuned for photographs shown as photographs, not for flyers or promo graphics.</p></li>
+      <li class="reveal" style="--d:.1s"><span class="n">02</span><h3>Loops that actually loop</h3><p>Every motion style is built so the last frame meets the first. The post runs all day without a visible seam, and its first frame is exactly the layout you built.</p></li>
+      <li class="reveal" style="--d:.2s"><span class="n">03</span><h3>Yours to keep</h3><p>Full-resolution files on your desktop, MP4s and stills you own, no account and no subscription. Your photos are never uploaded anywhere.</p></li>
+    </ol>
+
+    <div class="versus reveal">
+      <div class="mine"><span class="lab">AnimGram</span><span class="big">A$19<small>once</small></span><p class="fine" style="margin-top:10px">A$9 for the first 50 buyers.</p></div>
+      <div><span class="lab">A subscription editor</span><span class="big">A$165<small>a year</small></span><p class="fine" style="margin-top:10px">Canva Pro, annual price on canva.com/en_au/pricing, checked 16 November 2026.</p></div>
+      <div><span class="lab">A fair comparison</span><p class="body" style="font-size:16px">Canva does far more than AnimGram, and its free tier is generous. The point is the billing: if you only need beautiful photo posts and loops, you shouldn't have to rent them forever.</p></div>
+    </div>
+
+    <div class="isnt reveal">
+      <h3>What it isn't</h3>
+      <ul>
+        <li><b>Not a video editor.</b><span>It builds posts and films from your photos. There is no multitrack timeline of footage.</span></li>
+        <li><b>Not a phone app.</b><span>It runs on a Mac, for people who already edit photos on a desktop.</span></li>
+        <li><b>Not a scheduler.</b><span>It makes the file. You upload it to Instagram yourself.</span></li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-<section id="features">
-  <p class="eyebrow">What is in it</p>
-  <h2>Made for photographs.</h2>
-  <ul class="feat" style="margin-top:40px">
-    <li><b>Clean white-frame layouts</b><span>1 to 8 photos, thin white gutters, square corners.</span></li>
-    <li><b>Looping motion styles</b><span>Slow pans, frames that gently flex and trade space, and bouncy frame moves.</span></li>
-    <li><b>Three sizes</b><span>1080&times;1350 (4:5), 1080&times;1080 and 1080&times;1920.</span></li>
-    <li><b>MP4 video or stills</b><span>Export an MP4, or JPG and PNG stills.</span></li>
-    <li><b>Multi-slide carousels</b><span>Build several slides in one post and export them together.</span></li>
-    <li><b>Keyframe timeline</b><span>For when you want to fine-tune a move. Out of your way until you need it.</span></li>
-    <li><b>Local files, no account</b><span>Your photos stay on your Mac. No sign-up, no subscription.</span></li>
-    <li><b>Personal and commercial use</b><span>Post your own work or client and brand work.</span></li>
-  </ul>
-  <p class="soon">In progress, not in the current build: music in exports and GIF export. They are planned for early access updates and may change.</p>
+<!-- 4. MOTION ---------------------------------------------------------->
+<section class="sec dark" id="motion">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">In motion</p>
+      <h2>Loops that <em>actually loop.</em></h2>
+      <p class="lede">Fourteen motion styles: photos that glide, drift and push in, frames that slide, flex and bounce. Each is built so the last frame meets the first.</p>
+    </div>
+
+    <div class="gallery">
+      <figure class="reveal"><div class="frame"><video data-src="assets/loop-mountains.mp4" data-poster="assets/loop-mountains.jpg" muted loop playsinline preload="none" aria-label="Three photographs of mountain valleys and cliffs drifting slowly in a loop"></video></div><figcaption class="cap"><b>02</b>Drift, three photos</figcaption></figure>
+      <figure class="reveal" style="--d:.1s"><div class="frame"><video data-src="assets/loop-rain.mp4" data-poster="assets/loop-rain.jpg" muted loop playsinline preload="none" aria-label="Four rainy night street photographs in a two by two grid, frames gently flexing in a loop"></video></div><figcaption class="cap"><b>03</b>Flex, a 2 &times; 2 grid</figcaption></figure>
+      <figure class="reveal" style="--d:.2s"><div class="frame"><video data-src="assets/loop-tower.mp4" data-poster="assets/loop-tower.jpg" muted loop playsinline preload="none" aria-label="One photograph of a tall tower in a wide white border, slowly zooming in a loop"></video></div><figcaption class="cap"><b>04</b>Ken Burns, one photo</figcaption></figure>
+      <figure class="reveal"><div class="frame"><video data-src="assets/loop-six.mp4" data-poster="assets/loop-six.jpg" muted loop playsinline preload="none" aria-label="Six photographs of landscapes and night streets in a grid, gliding in a loop"></video></div><figcaption class="cap"><b>05</b>Glide, six photos</figcaption></figure>
+      <figure class="reveal" style="--d:.1s"><div class="frame"><video data-src="assets/loop-lamps.mp4" data-poster="assets/loop-lamps.jpg" muted loop playsinline preload="none" aria-label="A dusk sky above three night photographs, frames bouncing gently in a loop"></video></div><figcaption class="cap"><b>06</b>Bounce, frames that move</figcaption></figure>
+      <figure class="reveal" style="--d:.2s"><div class="frame"><video data-src="assets/loop-skies.mp4" data-poster="assets/loop-skies.jpg" muted loop playsinline preload="none" aria-label="A hill-top tower against a pastel sky, and storm clouds, in a two-slide carousel loop"></video></div><figcaption class="cap"><b>07</b>Drift, a carousel slide</figcaption></figure>
+    </div>
+
+    <div class="seam">
+      <div class="reveal">
+        <h3>Look at the seam.</h3>
+        <p class="body" style="margin-top:14px">Five frames from one loop. After the last frame comes the first, and nothing jumps. That is the whole trick, and it is built into every style, so you never have to engineer it yourself.</p>
+      </div>
+      <div class="seam-strip reveal" style="--d:.1s" role="group" aria-label="Five frames from one loop, the last leading back to the first">
+        <figure><img src="assets/seam-0.jpg" alt="Frame 1: a tower in a white border" loading="lazy" width="360" height="450"><figcaption>0.0 s</figcaption></figure>
+        <figure><img src="assets/seam-1.jpg" alt="Frame at 1.5 seconds, slightly zoomed" loading="lazy" width="360" height="450"><figcaption>1.5 s</figcaption></figure>
+        <figure><img src="assets/seam-2.jpg" alt="Frame at 3 seconds, mid zoom" loading="lazy" width="360" height="450"><figcaption>3.0 s</figcaption></figure>
+        <figure><img src="assets/seam-3.jpg" alt="Frame at 4.5 seconds, zooming back out" loading="lazy" width="360" height="450"><figcaption>4.5 s</figcaption></figure>
+        <figure class="last"><img src="assets/seam-4.jpg" alt="The last frame, one frame before the first" loading="lazy" width="360" height="450"><figcaption>5.97 s</figcaption></figure>
+        <span class="wrapback" aria-hidden="true">&circlearrowright; 0.0 s</span>
+      </div>
+    </div>
+
+    <div class="styles">
+      <div class="reveal"><p class="grp">Photo moves</p><ul class="chips"><li>Glide</li><li>Drift</li><li>Lift</li><li>Breathe</li><li>Pull back</li><li>Ken Burns</li><li>Push in</li><li>Sway</li><li>Wave</li><li>Elastic</li></ul></div>
+      <div class="reveal" style="--d:.1s"><p class="grp">Frame moves</p><ul class="chips"><li>Slide</li><li>Cascade</li><li>Flex</li><li>Bounce</li></ul></div>
+    </div>
+  </div>
 </section>
 
-<section id="price">
-  <p class="eyebrow">Price</p>
-  <h2>Pay once.</h2>
-  <div class="price" style="margin-top:32px">
-    <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#555">Founding licence</div>
-    <div class="amt">A$9<small>one-time</small></div>
-    <p class="then">For the first 50 buyers, then A$19 one-time.</p>
-    <ul>
-      <li>All 1.x updates</li>
-      <li>Personal and commercial use, including client and brand work</li>
-      <li>One licence for one person, on up to 2 Macs</li>
-      <li>No account, no subscription</li>
-      <li>14-day no-questions refund</li>
+<!-- 5. EDITOR ---------------------------------------------------------->
+<section class="sec paper" id="editor">
+  <div class="wrap">
+    <div class="split rev">
+      <div class="win reveal"><div class="win-bar"><i></i><i></i><i></i><span>AnimGram</span></div><img src="assets/ui-editor.jpg" alt="The AnimGram editor: a three-photo post of mountain valleys in white frames, with the layout library on the left and format, background and music controls on the right" loading="lazy" width="2000" height="1389"></div>
+      <div class="reveal" style="--d:.1s">
+        <p class="eyebrow">The editor</p>
+        <h2>A look, not a <em>template library.</em></h2>
+        <p class="lede" style="margin-bottom:8px">Pick a layout, drop in your photos, and they sit in clean white frames with exact gutters.</p>
+        <ul class="ticks">
+          <li><b>61 layouts</b> for one to eight photos</li>
+          <li><b>Three formats:</b> Feed 4:5, Square, Story and Reel 9:16</li>
+          <li><b>Reposition and zoom</b> each photo inside its frame</li>
+          <li><b>Looks</b> when you want them: Natural, Warm Film, Crisp Cool, Moody B&amp;W</li>
+        </ul>
+      </div>
+    </div>
+
+    <ol class="steps">
+      <li class="reveal"><span class="n">01</span><h3>Pick a layout</h3><p>From one to eight photos, with thin white gutters and square corners.</p></li>
+      <li class="reveal" style="--d:.08s"><span class="n">02</span><h3>Drop your photos</h3><p>Add several at once. They fill the frames in order; swap and recompose as you like.</p></li>
+      <li class="reveal" style="--d:.16s"><span class="n">03</span><h3>Choose a motion</h3><p>Preview a style on your own photos, then set the speed and intensity.</p></li>
+      <li class="reveal" style="--d:.24s"><span class="n">04</span><h3>Export</h3><p>MP4 for the moving post, stills for the grid, at the sizes Instagram uses.</p></li>
+    </ol>
+
+    <div class="subgrid">
+      <div class="win reveal"><div class="win-bar"><i></i><i></i><i></i><span>AnimGram: Motion</span></div><img src="assets/ui-motion.jpg" alt="The Motion tab with fourteen styles, Glide selected, and speed and intensity controls" loading="lazy" width="2000" height="1389"></div>
+      <div class="reveal" style="--d:.1s"><h3>Choose a style, hear nothing, see everything.</h3><p class="body" style="margin-top:14px;color:var(--muted-p)">The preview plays on your own photos before you commit. Beginners never touch a keyframe; if you want to fine-tune a move, an expandable timeline is there.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. FILM ------------------------------------------------------------>
+<section class="sec dark alt" id="film">
+  <div class="wrap">
+    <div class="split film">
+      <div class="reveal">
+        <div class="phone bigphone"><div class="bezel"><div class="screen"><span class="notch"></span><video data-src="assets/film-reel.mp4" data-poster="assets/film-reel.jpg" muted loop playsinline preload="none" aria-label="A four-slide Film: a mountain vista, two stacked valley photos, three dusk cloud bands, then a night street, joined by fade, push and dip-to-white transitions"></video></div></div></div>
+      </div>
+      <div class="reveal" style="--d:.1s">
+        <p class="eyebrow">Film mode</p>
+        <h2>From a post to a <em>Reel.</em></h2>
+        <p class="lede">Line up slides and they play one after another, with transitions between them, as a single MP4 for Reels and Stories. Every slide keeps its own layout and its own motion.</p>
+        <ul class="chips" style="margin-top:28px" aria-label="Transitions"><li>Cut</li><li class="hi">Fade</li><li class="hi">Dip to white</li><li>Slide</li><li class="hi">Push</li><li>Zoom</li><li>Morph</li><li>Whip</li></ul>
+        <figure class="strip-img" style="margin-top:36px"><img src="assets/ui-filmstrip.jpg" alt="The film strip: four slides joined by Fade, Push and Dip transitions, with slide lengths shown in bars" loading="lazy" width="1400" height="130"></figure>
+        <p class="cap" style="margin-top:14px">A four-slide Film, 1080 &times; 1920, made in AnimGram. This file has no music; the site never plays audio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. MUSIC ----------------------------------------------------------->
+<section class="sec paper" id="music">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Music</p>
+      <h2>Your song. Motion that <em>follows.</em></h2>
+      <p class="lede">Add a song you have the rights to and pick the part you want. AnimGram never moves the song: with Animate to the beat on, it re-times the animation to that part's beat instead.</p>
+    </div>
+    <div class="win reveal"><div class="win-bar"><i></i><i></i><i></i><span>AnimGram: Music and timeline</span></div><img src="assets/ui-music.jpg" alt="A Film with a song loaded: the Music panel shows the part-of-the-song window on the waveform, the Animate to the beat switch and Feel, and the timeline shows the music lane with beat ticks along the ruler" loading="lazy" width="2000" height="1389"></div>
+    <div class="detail reveal">
+      <figure class="win"><div class="win-bar"><i></i><i></i><i></i><span>Timeline</span></div><img src="assets/ui-timeline.jpg" alt="The timeline: beat ticks along the ruler, the chosen part of the song on its own lane, and motion keyframes sitting on the beats" loading="lazy" width="2000" height="460"></figure>
+      <figure class="win"><div class="win-bar"><i></i><i></i><i></i><span>Music</span></div><img src="assets/ui-musicpanel.jpg" alt="The Music panel: Part of the song window on the waveform with suggested dots, the Animate to the beat switch, and Feel set to Bars, Half bars or Beats" loading="lazy" width="600" height="520"></figure>
+    </div>
+    <ul class="trio" style="margin-top:clamp(40px,6vw,80px)">
+      <li class="reveal"><span class="n">01</span><h3>You pick the part of the song</h3><p>Drag a window along the waveform to choose exactly what plays. It snaps to the beat. A few suggested parts are marked with dots, and they only move the window if you click one.</p></li>
+      <li class="reveal" style="--d:.1s"><span class="n">02</span><h3>Motion lands on the beat</h3><p>Animate to the beat makes motion moves land on the beat, keeps loops to whole bars and puts Film transitions on downbeats. Feel is Bars, Half bars or Beats. Move the window and the animation re-fits, in one undo step.</p></li>
+      <li class="reveal" style="--d:.2s"><span class="n">03</span><h3>Sound and picture stay together</h3><p>The exported MP4 carries AAC audio, with sound and picture frame-accurate.</p></li>
     </ul>
-    <a class="btn" href="#price">Get AnimGram &mdash; A$9 founding price</a>
-    <p class="fine">Checkout opens shortly.</p>
-    <p class="fine">Early access: expect rough edges. Sold by Lemon Squeezy, who handle payment and sales tax. Prices in Australian dollars. Your <a href="refunds.html">refund rights</a> under the Australian Consumer Law are not limited.</p>
+    <p class="fine reveal" style="margin-top:36px;max-width:44em">AnimGram doesn't supply music: bring a song you have the rights to, and check the licensing rules of wherever you post it. The screenshots here use a beat generated for this page, never a copyrighted track.</p>
   </div>
 </section>
 
-<section id="faq">
-  <p class="eyebrow">Questions</p>
-  <h2>Before you buy.</h2>
-  <div style="margin-top:32px">
-  <details><summary>What do I need to run it?</summary><p>A Mac running macOS 13.3 or later, Apple silicon and Intel. It is a Mac app, not a phone app.</p></details>
-  <details><summary>What does early access mean?</summary><p>The core workflow works, but you should expect rough edges and the odd bug. Music in exports and GIF export are still in progress. Buying now gets you the founding price and a say in what we fix first.</p></details>
-  <details><summary>What if macOS warns me when I open it?</summary><p>It shouldn't. AnimGram is signed with an Apple Developer ID and notarised by Apple, so it opens like any other app you download. The first time, macOS asks you to confirm you want to open something downloaded from the internet &mdash; click Open.</p></details>
-  <details><summary>Can I get a refund?</summary><p>Yes. Ask within 14 days, no questions asked. This does not limit your rights under the Australian Consumer Law. See the <a href="refunds.html">refund policy</a>.</p></details>
-  <details><summary>What does the licence cover?</summary><p>One licence is for one person, on up to 2 Macs. You may use the output for personal and commercial work, including client and brand posts. All 1.x updates are included. Read the full <a href="licence.html">licence</a>.</p></details>
-  <details><summary>What about my privacy?</summary><p>AnimGram works offline. There is no account and no tracking, and your photos stay on your Mac. This site has no analytics either.</p></details>
-  <details><summary>Why not use Instagram's free tools?</summary><p>They are good, and if they do what you need, use them. AnimGram is for people who want precise control of a clean photographic layout, work from full-size files on a desktop, and want MP4 and still files they keep, without a subscription.</p></details>
+<!-- 8. EXPORT ---------------------------------------------------------->
+<section class="sec dark" id="export">
+  <div class="wrap">
+    <div class="split" style="align-items:start">
+      <div class="reveal">
+        <p class="eyebrow">Export</p>
+        <h2>Files you <em>keep.</em></h2>
+        <p class="lede">No watermark, no cloud, no expiry. They are ordinary files on your Mac.</p>
+      </div>
+      <dl class="spec reveal" style="--d:.1s">
+        <div><dt>Video</dt><dd>MP4 (H.264)<small>30 or 60 frames per second</small></dd></div>
+        <div><dt>Animated</dt><dd>GIF</dd></div>
+        <div><dt>Stills</dt><dd>PNG and JPG</dd></div>
+        <div><dt>Sizes</dt><dd>Feed 1080 &times; 1350<small>Square 1080 &times; 1080 &middot; Story and Reel 1080 &times; 1920</small></dd></div>
+        <div><dt>Carousels</dt><dd>Every slide, exported together</dd></div>
+        <div><dt>Films</dt><dd>One MP4, with AAC audio if you add a song</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 9. PRICE ----------------------------------------------------------->
+<section class="sec paper" id="price">
+  <div class="wrap">
+    <div class="price-grid">
+      <div class="reveal">
+        <p class="eyebrow">Price</p>
+        <h2>Pay once. <em>Keep it.</em></h2>
+        <p class="lede">A$9 for the first 50 buyers, then A$19. One payment, every 1.x update, no subscription, and a 14-day refund if it is not for you.</p>
+        <p class="body" style="margin-top:28px">It is early access. The core workflow is solid, and you should still expect rough edges and the odd bug. The founding price is for people happy to help shape what gets fixed first.</p>
+      </div>
+      <div class="card reveal" style="--d:.1s">
+        <span class="lab">Founding licence</span>
+        <div class="amt">A$9<small>one-time</small></div>
+        <p class="then">For the first 50 buyers, then A$19 one-time.</p>
+        <ul>
+          <li>All 1.x updates</li>
+          <li>Personal and commercial use, including client and brand work</li>
+          <li>One licence for one person, on up to 2 Macs</li>
+          <li>No account, no subscription</li>
+          <li>14-day no-questions refund</li>
+        </ul>
+        <a class="btn is-off" id="buy-main" href="#price" role="button" aria-disabled="true">Buy &mdash; available soon</a>
+        <p class="note" id="buy-note">Checkout opens when the store is approved &mdash; email <a href="mailto:hello@j-w-i.org?subject=Tell%20me%20when%20AnimGram%20is%20on%20sale">hello@j-w-i.org</a> to be told first.</p>
+        <p class="fine">Sold by Joshua Walraven through our payment provider, which acts as the merchant of record and handles payment and sales tax (GST). Prices in Australian dollars. Your <a href="refunds.html">refund rights</a> under the Australian Consumer Law are not limited.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. FAQ ------------------------------------------------------------>
+<section class="sec dark" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal"><p class="eyebrow">Questions</p><h2>Before you <em>buy.</em></h2></div>
+    <div class="faq reveal">
+      <details><summary>Why not just use Instagram's free tools?</summary><p>You might not need to pay. They are good, and if a quick phone collage does the job, use it. People choose AnimGram for precise control of a clean photographic layout, for working from full-size files on a desktop, and for MP4 and still files they keep, without another subscription.</p></details>
+      <details><summary>What do I need to run it?</summary><p>A Mac running macOS 13.3 or later. It is a Mac app, not a phone app.</p></details>
+      <details><summary>Does it run on Intel Macs?</summary><p>Yes. AnimGram is a universal app that runs natively on Apple silicon and on Intel.</p></details>
+      <details><summary>What does early access mean?</summary><p>The core workflow works and is tested, but you should expect rough edges and the odd bug, and features will keep improving. Buying now gets you the founding price and a say in what we fix first. There is a feedback link in the footer and you can email me directly.</p></details>
+      <details><summary>Will macOS warn me when I open it?</summary><p>It shouldn't. AnimGram is signed with an Apple Developer ID and notarised by Apple, so it opens like any other app you download. The first time, macOS asks you to confirm you want to open something downloaded from the internet. Click Open.</p></details>
+      <details><summary>Will it work with Instagram?</summary><p>AnimGram makes standard H.264 MP4s and stills at the sizes Instagram uses: 4:5, 1:1 and 9:16. You upload them yourself in Instagram. AnimGram doesn't connect to your account, and Instagram applies its own compression to anything you post.</p></details>
+      <details><summary>Does motion get more reach?</summary><p>We don't claim that. The public data conflicts, and nothing cleanly separates animated photo posts from others. Our view, as an opinion, is that motion catches the eye in a feed.</p></details>
+      <details><summary>What about music rights?</summary><p>AnimGram doesn't include or supply music. You add a song you have the rights to. Social platforms have their own rules for music, so check them before you post, especially for client or brand work.</p></details>
+      <details><summary>Can I get a refund?</summary><p>Yes. Ask within 14 days, no questions asked. This does not limit your rights under the Australian Consumer Law. See the <a href="refunds.html">refund policy</a>.</p></details>
+      <details><summary>What does the licence cover?</summary><p>One licence is for one person, on up to 2 Macs. You may use the output for personal and commercial work, including client and brand posts. All 1.x updates are included. Read the full <a href="licence.html">licence</a>.</p></details>
+      <details><summary>What about my privacy?</summary><p>AnimGram works offline. There is no account and no tracking, and your photos stay on your Mac. This site has no analytics either.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 11. CLOSER --------------------------------------------------------->
+<section class="closer">
+  <div class="wrap reveal">
+    <h2>Make the post your photos <em>deserve.</em></h2>
+    <div class="cta-row"><a class="btn" href="#price" data-buy>Get AnimGram: A$9 founding price</a></div>
+    <p class="fine" style="margin-top:22px">Mac only. Pay once. 14-day refund.</p>
   </div>
 </section>
 </main>
 
 <footer>
-  <div class="cols">
-    <div><p><strong style="color:var(--text);font-family:var(--serif);font-weight:500;font-size:18px">AnimGram</strong></p><p>&copy; Joshua Walraven (sole trader).</p><p>Payments handled by Lemon Squeezy as merchant of record.</p></div>
+  <div class="wrap cols">
+    <div><a class="mark" href="#top">Anim<i>Gram</i></a><p>&copy; 2026 Joshua Walraven. Sole trader, New South Wales, Australia.</p><p>Payments are handled by our payment provider, which acts as the merchant of record and handles sales tax (GST).</p><p>AnimGram is not affiliated with or endorsed by Instagram or Meta.</p></div>
     <div><p><a href="licence.html">Licence</a></p><p><a href="refunds.html">Refund policy</a></p></div>
     <div><p><a href="mailto:hello@j-w-i.org">hello@j-w-i.org</a></p><p><a href="mailto:hello@j-w-i.org?subject=AnimGram%20feedback">Send feedback</a></p></div>
   </div>
 </footer>
-</div>
 
 <script>
+// ---- Switch on checkout: paste the checkout URL between the quotes. ----
+const CHECKOUT_URL = '';
+// ---------------------------------------------------------------------------------------
 (function(){
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('[data-demo]').forEach(function(box){
-    var v = box.querySelector('video'), s = v.querySelector('source');
-    function ok(){ box.classList.add('ready'); }
-    v.addEventListener('loadeddata', ok);
-    if (v.readyState >= 2) ok();
-    if (reduce){ v.removeAttribute('autoplay'); v.pause(); v.controls = true; }
-  });
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Buy buttons: all point at #price until CHECKOUT_URL is set.
+  if (CHECKOUT_URL) {
+    document.querySelectorAll('[data-buy]').forEach(function(a){ a.href = CHECKOUT_URL; });
+    var main = document.getElementById('buy-main');
+    if (main) { main.href = CHECKOUT_URL; main.classList.remove('is-off'); main.removeAttribute('aria-disabled'); main.removeAttribute('role'); main.textContent = 'Buy AnimGram — A$9 founding price'; }
+    var note = document.getElementById('buy-note'); if (note) note.hidden = true;
+  } else {
+    var m = document.getElementById('buy-main');
+    if (m) m.addEventListener('click', function(e){ e.preventDefault(); });
+  }
+
+  // Reveal on scroll.
+  var rev = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduce) {
+    var ro = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+    rev.forEach(function(el){ ro.observe(el); });
+  } else { rev.forEach(function(el){ el.classList.add('in'); }); }
+
+  // Posters for below-the-fold videos load only when they are near the viewport.
+  (function(){
+    var pv = document.querySelectorAll('video[data-poster]');
+    function setP(v){ if (v.dataset.poster) { v.poster = v.dataset.poster; v.removeAttribute('data-poster'); } }
+    if ('IntersectionObserver' in window) {
+      var po = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ setP(e.target); po.unobserve(e.target); } }); }, { rootMargin: '600px 0px' });
+      pv.forEach(function(v){ po.observe(v); });
+    } else { pv.forEach(setP); }
+  })();
+
+  // Videos: hero plays at once; the rest load and play only when near the viewport.
+  var hero = document.querySelector('.hero video');
+  if (reduce) {
+    document.querySelectorAll('video').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); });
+  } else {
+    if (hero) hero.play().catch(function(){});
+    if ('IntersectionObserver' in window) {
+      var vo = new IntersectionObserver(function(es){ es.forEach(function(e){
+        var v = e.target;
+        if (e.isIntersecting) {
+          if (v.dataset.src && !v.getAttribute('src')) { v.src = v.dataset.src; v.load(); }
+          var p = v.play(); if (p && p.catch) p.catch(function(){});
+        } else { v.pause(); }
+      }); }, { rootMargin: '240px 0px' });
+      document.querySelectorAll('video[data-src]').forEach(function(v){ vo.observe(v); });
+    } else {
+      document.querySelectorAll('video[data-src]').forEach(function(v){ v.src = v.dataset.src; v.play().catch(function(){}); });
+    }
+  }
+
+  // Gentle parallax on the phones (large screens only).
+  var px = document.querySelectorAll('[data-parallax]');
+  if (px.length && !reduce && window.innerWidth > 960) {
+    var tick = false;
+    function upd(){ tick = false; var h = window.innerHeight; px.forEach(function(el){ var r = el.getBoundingClientRect(); var d = (r.top + r.height/2 - h/2); el.style.translate = '0 ' + (d * parseFloat(el.dataset.parallax)).toFixed(1) + 'px'; }); }
+    window.addEventListener('scroll', function(){ if (!tick){ tick = true; requestAnimationFrame(upd); } }, { passive: true });
+    upd();
+  }
 })();
 </script>
 </body>
