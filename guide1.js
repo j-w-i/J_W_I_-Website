@@ -1,10 +1,9 @@
 /* guide1.js — the iOS 6 setup wizard.
  *
- * One linear sequence of 26 logical steps: toolchain setup (0–3), a branch
- * (4), the chosen path — templates (5–11) or manual (12–24) — and the finale
- * (25). The three downloads variants are a single logical step; only the one
- * matching the chosen OS is shown. Steps with data-path belong to one branch
- * only.
+ * One linear sequence of 7 steps for the Legacy Swift Development Kit:
+ * choose macOS (0), downloads (1), open the kit (2), install the environment
+ * (3), open a project (4), build the IPA (5) and the finale (6). The macOS
+ * choice picks Native or Modern mode; .os-opt paragraphs follow it.
  *
  * With JS on the wizard runs as a full-screen app (body.wiz-app): the page
  * itself never scrolls — only the step stage scrolls when a step outgrows
@@ -29,26 +28,18 @@
 
   const steps = Array.from(shell.querySelectorAll('.wizard-step'));
 
-  /* DOM layout: 0 OS · 1–3 downloads variants · 4 Xcode · 5 rpath ·
-   * 6 path choice · 7–13 templates · 14–26 manual · 27 finale */
-  const TOTAL = 26;
+  const TOTAL = steps.length;
   const LAST = TOTAL - 1;
 
-  function domFor(pos, os) {
-    if (pos === 0) return 0;
-    if (pos === 1) return { mojave: 1, bigsur: 2, monterey: 3 }[os] ?? 1;
-    return pos + 2; /* logical 2+ is shifted by the three download variants */
-  }
-
+  /* start: first logical step of the phase, for the "n of span" label */
   const PHASES = [
-    { name: 'Setup',     tick: 'a', title: 'Preparing the Toolchain', span: 4  },
-    { name: 'Path',      tick: 'b', title: 'Choose Your Path',        span: 1  },
-    { name: 'Templates', tick: 'c', title: 'Using the Templates',     span: 7  },
-    { name: 'Manual',    tick: 'd', title: 'Manual Project Setup',    span: 13 },
-    { name: 'Build',     tick: 'e', title: "You're All Set",          span: 1  }
+    { name: 'Setup',   tick: 'a', title: 'Preparing Your Mac',         start: 0, span: 3 },
+    { name: 'Install', tick: 'b', title: 'Installing the Environment', start: 3, span: 1 },
+    { name: 'Build',   tick: 'c', title: 'Building Your App',          start: 4, span: 2 },
+    { name: 'Done',    tick: 'd', title: "You're All Set",             start: 6, span: 1 }
   ];
   function phaseFor(pos) {
-    return pos < 4 ? 0 : pos === 4 ? 1 : pos < 12 ? 2 : pos < LAST ? 3 : 4;
+    return pos < 3 ? 0 : pos === 3 ? 1 : pos < LAST ? 2 : 3;
   }
 
   const kickerTick = document.querySelector('#wizard .section-head .tick');
@@ -76,7 +67,7 @@
     });
   }
 
-  const state = { pos: 0, os: null, path: null };
+  const state = { pos: 0, os: null };
 
   /* Logical positions whose confirmation has been ticked. Survives Back, so
    * a revisited step shows the button already green — the work is the work. */
@@ -91,13 +82,7 @@
     shell.querySelectorAll('.os-opt').forEach((el) => {
       el.classList.toggle('is-hidden', el.dataset.os !== state.os);
     });
-    shell.querySelectorAll('.os-card').forEach((card) => {
-      card.classList.toggle('is-selected', card.querySelector('input').checked);
-    });
-  }
-
-  function applyPath() {
-    shell.querySelectorAll('.path-card').forEach((card) => {
+    shell.querySelectorAll('.os-card, .path-card').forEach((card) => {
       card.classList.toggle('is-selected', card.querySelector('input').checked);
     });
   }
@@ -108,27 +93,15 @@
    * (kept in the DOM as the source of truth and the no-JS fallback) plus the
    * label text that lives inside the Next button until it's ticked. */
   function armAt(pos) {
-    const el = steps[domFor(pos, state.os)];
+    const el = steps[pos];
     const box = el && el.querySelector('.confirm-box');
     if (!box) return null;
     const text = (el.querySelector('.wiz-confirm span') || {}).textContent || 'Done';
     return { box, text };
   }
 
-  /* The branch: the other path's steps are skipped entirely, so the last
-   * step of the chosen path lands on the finale — and Back from the finale
-   * returns to the last step of the chosen path. */
-  function advance(from) {
-    if (from === 4) return state.path === 'manual' ? 12 : 5;
-    if (from === 11 || from === 24) return 25;
-    return from + 1;
-  }
-
-  function retreat(from) {
-    if (from === 5 || from === 12) return 4;
-    if (from === 25) return state.path === 'manual' ? 24 : 11;
-    return from - 1;
-  }
+  function advance(from) { return from + 1; }
+  function retreat(from) { return from - 1; }
 
   function refreshControls() {
     const pos = state.pos;
@@ -150,14 +123,14 @@
         next.classList.toggle('is-armed', !!done);
         if (nextLabel) nextLabel.textContent = done ? 'Next step' : arm.text;
       } else {
-        /* selection steps (OS, path): plain Next, disabled until chosen */
-        next.disabled = pos === 0 ? !state.os : !state.path;
+        /* the macOS choice: plain Next, disabled until chosen */
+        next.disabled = !state.os;
         next.classList.remove('is-armed');
         if (nextLabel) nextLabel.textContent = 'Next step';
       }
     }
 
-    const stage = pos < 4 ? 0 : pos === 11 || pos >= 24 ? 2 : 1;
+    const stage = pos < 3 ? 0 : pos === 3 ? 1 : 2;
     document.querySelectorAll('.installer-phases li').forEach((item, index) => {
       item.classList.toggle('is-done', index < stage);
       if (index === stage) item.setAttribute('aria-current', 'step');
@@ -165,24 +138,20 @@
     });
     const context = document.getElementById('installer-context');
     if (context) {
-      const osNames = { mojave: 'macOS Mojave', bigsur: 'macOS Big Sur', monterey: 'macOS Monterey' };
-      context.textContent = state.os ? osNames[state.os] + (state.path ? ' · ' + (state.path === 'manual' ? 'Manual setup' : 'Templates') : '') : 'Choose a macOS version to get started.';
+      const osNames = { native: 'macOS Monterey · Native mode', modern: 'macOS 13 or later · Modern mode' };
+      context.textContent = state.os ? osNames[state.os] : 'Choose a macOS version to get started.';
     }
     const p = phaseFor(pos);
     if (kickerTick) kickerTick.textContent = PHASES[p].tick;
     kicker.textContent = PHASES[p].name;
     title.textContent = PHASES[p].title;
 
-    if (pos === 4) {
-      progressLabel.textContent = 'Choose your path';
-      renderTicks(1, PHASES[p].span, false);
-    } else if (pos === LAST) {
+    if (pos === LAST) {
       progressLabel.textContent = 'Setup complete';
       renderTicks(PHASES[p].span, PHASES[p].span, true);
     } else {
-      const start = p === 0 ? 0 : p === 2 ? 5 : 12;
-      const index = pos - start + 1;
-      const badge = steps[domFor(pos, state.os)].querySelector('.step-badge');
+      const index = pos - PHASES[p].start + 1;
+      const badge = steps[pos].querySelector('.step-badge');
       if (badge) badge.textContent = String(index);
       progressLabel.textContent = PHASES[p].name + ' · ' + index + ' of ' + PHASES[p].span;
       renderTicks(index, PHASES[p].span, false);
@@ -210,7 +179,7 @@
     const g = ++gen;
     if (swapTimer) { clearTimeout(swapTimer); swapTimer = 0; }
     state.pos = Math.max(0, Math.min(pos, LAST));
-    const i = domFor(state.pos, state.os);
+    const i = state.pos;
     const target = steps[i];
     const prev = visibleEl && visibleEl !== target ? visibleEl : null;
     const motion = canMotion();
@@ -222,15 +191,7 @@
       if (swapTimer) { clearTimeout(swapTimer); swapTimer = 0; }
       if (prev) prev.classList.remove('wiz-exit');
       applyOS();
-      applyPath();
-      steps.forEach((el, k) => {
-        /* variant steps stay hidden until their OS / the chosen path is shown */
-        const osBlocked  = el.dataset.os   && el.dataset.os   !== state.os;
-        const pathBlocked = el.dataset.path && el.dataset.path !== state.path;
-        /* !! coerces to a real boolean — force === undefined would *toggle*,
-         * and an absent class toggled on stays on */
-        el.classList.toggle('is-hidden', !!(k !== i || osBlocked || pathBlocked));
-      });
+      steps.forEach((el, k) => el.classList.toggle('is-hidden', k !== i));
       if (motion && !target.classList.contains('wiz-arrive')) {
         /* reflow *after* the start state is committed — a frame callback
          * here would be coalesced into the same style pass and the
@@ -277,9 +238,6 @@
   restart.addEventListener('click', () => {
     confirmed.clear();
     shell.querySelectorAll('.confirm-box').forEach((box) => (box.checked = false));
-    shell.querySelectorAll('input[name="wizard-path"]').forEach((r) => (r.checked = false));
-    state.path = null;
-    applyPath();
     show(0, true);
   });
 
@@ -287,8 +245,6 @@
     const t = e.target;
     if (t.name === 'wizard-os') {
       state.os = t.value;
-    } else if (t.name === 'wizard-path') {
-      state.path = t.value;
     } else if (t.classList.contains('confirm-box')) {
       /* the box is hidden in JS mode, but keep the set and the button in
        * sync with it either way */
@@ -298,7 +254,6 @@
       return;
     }
     applyOS();
-    applyPath();
     refreshControls();
   });
 

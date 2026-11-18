@@ -8,9 +8,10 @@ muted steel blue identifies links and focus.
 
 - `index.html` — hero wordmark + index of everything
 - `swiftios6.html` — the "Swift on iOS 6" technical note
-- `swiftonios6guidepart1.html` — the iOS 6 Setup Guide (full-screen interactive
-  wizard, `guide1.js`): toolchain install, then a branch into the templates path
-  or the manual project setup, then the finale
+- `swiftonios6guidepart1.html` — the iOS 5 & 6 Setup Guide (full-screen interactive
+  wizard, `guide1.js`): a linear walkthrough of the Legacy Swift Development Kit —
+  choose macOS (Native/Modern), downloads, open the kit, install the environment,
+  open a project, build the IPA, finale. The kit's in-app guide button links here.
 - `support.html` — contact
 - `photography.html` — three public Pixieset collections, image-led layout and
   collapsed native album details; generated from `data/photography.json`

@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Toolchain Guide — J_W_I_</title>
-  <meta name="description" content="Install the Swift toolchain, set up an Xcode project, and build your first app for iOS 6 — one step at a time.">
+  <meta name="description" content="Set up Swift 5.10 for iOS 5 and 6 with the Legacy Swift Development Kit, then build your first IPA.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://j-w-i.org/swiftonios6guidepart1.html">
   <meta name="theme-color" content="#1e2024">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="J_W_I_">
-  <meta property="og:title" content="The iOS 6 Setup Guide — J_W_I_">
-  <meta property="og:description" content="Install the Swift toolchain, set up an Xcode project, and build your first app for iOS 6 — one step at a time.">
+  <meta property="og:title" content="The iOS 5 &amp; 6 Setup Guide — J_W_I_">
+  <meta property="og:description" content="Set up Swift 5.10 for iOS 5 and 6 with the Legacy Swift Development Kit, then build your first IPA.">
   <meta property="og:url" content="https://j-w-i.org/swiftonios6guidepart1.html">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="The iOS 6 Setup Guide — J_W_I_">
-  <meta name="twitter:description" content="Install the Swift toolchain, set up an Xcode project, and build your first app for iOS 6.">
+  <meta name="twitter:title" content="The iOS 5 &amp; 6 Setup Guide — J_W_I_">
+  <meta name="twitter:description" content="Set up Swift 5.10 for iOS 5 and 6 with the Legacy Swift Development Kit.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -59,13 +59,13 @@
 
     <div class="page-head">
       <span class="kicker"><span class="tick" aria-hidden="true">/</span>Guide</span>
-      <h1>The iOS 6 Setup Guide</h1>
-      <p class="lede" data-typewrite="1" data-typewrite-then="main > section">Install the toolchain, set up an Xcode project, and build your first app — one step at a time.</p>
+      <h1>The iOS 5 &amp; 6 Setup Guide</h1>
+      <p class="lede" data-typewrite="1" data-typewrite-then="main > section">One Mac app sets up Xcode 13.4.1 and the Swift toolchains, then builds your app for iOS 5 and 6.</p>
     </div>
 
     <section class="section wizard" id="wizard">
       <div class="section-head">
-        <span class="installer-name">Swift on iOS 6 <span>Toolchain installer</span></span>
+        <span class="installer-name">Legacy Swift <span>Development Kit</span></span>
         <span class="kicker"><span class="tick" aria-hidden="true">a</span><span id="wiz-kicker">Setup</span></span>
         <h2 class="section-title" id="wiz-title">Preparing the Toolchain</h2>
       </div>
@@ -73,9 +73,9 @@
       <aside class="installer-sidebar" aria-label="Installation overview">
         <p class="kicker">Installation</p>
         <ol class="installer-phases">
-          <li data-stage="0" aria-current="step"><span class="installer-stage-num">1</span><span>Prepare<span class="installer-stage-note">Xcode &amp; toolchains</span></span></li>
-          <li data-stage="1"><span class="installer-stage-num">2</span><span>Project<span class="installer-stage-note">Choose your setup</span></span></li>
-          <li data-stage="2"><span class="installer-stage-num">3</span><span>Build<span class="installer-stage-note">Your first iOS 6 app</span></span></li>
+          <li data-stage="0" aria-current="step"><span class="installer-stage-num">1</span><span>Prepare<span class="installer-stage-note">Downloads &amp; the kit</span></span></li>
+          <li data-stage="1"><span class="installer-stage-num">2</span><span>Install<span class="installer-stage-note">The environment</span></span></li>
+          <li data-stage="2"><span class="installer-stage-num">3</span><span>Build<span class="installer-stage-note">Your first IPA</span></span></li>
         </ol>
         <div class="installer-context"><span class="kicker">Your setup</span><p id="installer-context">Choose a macOS version to get started.</p></div>
       </aside>
@@ -87,551 +87,133 @@
           <span class="step-badge" aria-hidden="true">0</span>
           <div class="step-body">
             <h3>Choose your macOS</h3>
-            <p>First things first — which Mac are you on? The guide follows your choice all the way through.</p>
-            <fieldset class="os-grid">
+            <p>The Legacy Swift Development Kit runs on macOS 12 and later. Which Mac are you on?</p>
+            <fieldset class="path-grid">
               <legend class="visually-hidden">Your macOS version</legend>
-              <label class="os-card"><svg class="choice-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
-                <span class="os-name">Mojave</span>
-                <span class="os-ver">10.14</span>
-                <input class="os-dot" type="radio" name="wizard-os" value="mojave">
+              <label class="path-card">
+                <svg class="choice-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><span class="path-name">macOS Monterey 12</span>
+                <span class="path-desc">Native mode: Xcode 13.4.1 runs as Apple shipped it.</span>
+                <input class="path-dot" type="radio" name="wizard-os" value="native">
               </label>
-              <label class="os-card"><svg class="choice-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
-                <span class="os-name">Big Sur</span>
-                <span class="os-ver">11.x</span>
-                <input class="os-dot" type="radio" name="wizard-os" value="bigsur">
-              </label>
-              <label class="os-card"><svg class="choice-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
-                <span class="os-name">Monterey</span>
-                <span class="os-ver">12.x</span>
-                <input class="os-dot" type="radio" name="wizard-os" value="monterey">
+              <label class="path-card">
+                <svg class="choice-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><span class="path-name">macOS 13 or later</span>
+                <span class="path-desc">Modern mode: the kit patches its own copy of Xcode so it opens. Experimental.</span>
+                <input class="path-dot" type="radio" name="wizard-os" value="modern">
               </label>
             </fieldset>
           </div>
         </div>
 
-        <!-- 1 · Downloads (per-OS) -->
-        <div class="step wizard-step" data-step="1" data-os="mojave">
+        <!-- 1 · Downloads -->
+        <div class="step wizard-step" data-step="1">
           <span class="step-badge" aria-hidden="true">1</span>
           <div class="step-body">
-            <h3>Downloads — Mojave</h3>
-            <p>Grab the Xcode version for Mojave, then the toolchain and build script:</p>
+            <h3>Downloads</h3>
+            <p>Two downloads: the kit, and Xcode 13.4.1 from Apple. You'll need to sign in with an Apple ID for Xcode. Leave the <code>.xip</code> in Downloads; the kit finds it there.</p>
             <ul class="dl-list">
-              <li><a class="dl-row" href="https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_11.3.1/Xcode_11.3.1.xip" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Xcode 11.3.1</span><span class="dl-src">Apple developer downloads</span></a></li>
-              <li><a class="dl-row" href="https://drive.google.com/uc?export=download&amp;id=1BulbeT8uqK9GXg_GMlq-HkyetNs-FfOj" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Swift 5.1.5 Toolchain</span><span class="dl-src">Google Drive</span></a></li>
-              <li><a class="dl-row" href="https://github.com/j-w-i/Swift-5.1.5-for-iOS-6/releases/download/0.0.1/xcodearchivebuildswift5.1.5toolchain.command" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Build Script</span><span class="dl-src">GitHub</span></a></li>
-            </ul>
-            <p class="step-note">Only Swift 5.1.5 required.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've downloaded the files for my Mac</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="step wizard-step" data-step="1" data-os="bigsur">
-          <span class="step-badge" aria-hidden="true">1</span>
-          <div class="step-body">
-            <h3>Downloads — Big Sur</h3>
-            <p>Grab the Xcode version for Big Sur, then the toolchains and build script:</p>
-            <ul class="dl-list">
-              <li><a class="dl-row" href="https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_13.2.1/Xcode_13.2.1.xip" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Xcode 13.2.1</span><span class="dl-src">Apple developer downloads</span></a></li>
-              <li><a class="dl-row" href="https://drive.google.com/uc?export=download&amp;id=1FRh12FZ8ocuGPU13RvRWHf5l7Qv53gRO" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Swift 5.6.3 Toolchain</span><span class="dl-src">Google Drive</span></a></li>
-              <li><a class="dl-row" href="https://drive.google.com/uc?export=download&amp;id=1BulbeT8uqK9GXg_GMlq-HkyetNs-FfOj" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Swift 5.1.5 Toolchain</span><span class="dl-src">Google Drive</span></a></li>
-              <li><a class="dl-row" href="https://github.com/j-w-i/Swift-5.6.3-for-iOS-6/releases/download/0.0.1/xcodearchivebuildswift5.6.3toolchain.command" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Build Script</span><span class="dl-src">GitHub</span></a></li>
-            </ul>
-            <p class="step-note">Both Swift 5.6.3 and 5.1.5 required.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've downloaded the files for my Mac</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="step wizard-step" data-step="1" data-os="monterey">
-          <span class="step-badge" aria-hidden="true">1</span>
-          <div class="step-body">
-            <h3>Downloads — Monterey</h3>
-            <p>Grab the Xcode version for Monterey, then the toolchains and build script:</p>
-            <ul class="dl-list">
+              <li><a class="dl-row" href="https://github.com/j-w-i/Legacy-Swift-Toolchain-Builds/releases/latest/download/Legacy-Swift-Development-Kit.app.zip"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Legacy Swift Development Kit</span><span class="dl-src">GitHub</span></a></li>
               <li><a class="dl-row" href="https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_13.4.1/Xcode_13.4.1.xip" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Xcode 13.4.1</span><span class="dl-src">Apple developer downloads</span></a></li>
-              <li><a class="dl-row" href="https://drive.google.com/uc?export=download&amp;id=1RuLxPPvQeOZQn22UlAptaRM_2UqrHl-" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Swift 5.10.1 Toolchain</span><span class="dl-src">Google Drive</span></a></li>
-              <li><a class="dl-row" href="https://drive.google.com/uc?export=download&amp;id=1BulbeT8uqK9GXg_GMlq-HkyetNs-FfOj" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Swift 5.1.5 Toolchain</span><span class="dl-src">Google Drive</span></a></li>
-              <li><a class="dl-row" href="https://github.com/j-w-i/Swift-5.10.1-for-iOS-6/releases/download/0.0.1/xcodearchivebuildswift5.10.1toolchain.command" target="_blank" rel="noopener"><span class="dl-ic" aria-hidden="true"><svg class="download-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></svg></span><span class="dl-name">Build Script</span><span class="dl-src">GitHub</span></a></li>
             </ul>
-            <p class="step-note">Both Swift 5.10.1 and 5.1.5 required.</p>
+            <p class="step-note">You don't need to download the toolchains. The kit fetches and verifies them for you.</p>
             <div class="wiz-confirm">
               <label class="confirm">
                 <input class="confirm-box" type="checkbox">
-                <span>I've downloaded the files for my Mac</span>
+                <span>I've downloaded both</span>
               </label>
             </div>
           </div>
         </div>
 
-        <!-- 2 · Install Xcode -->
+        <!-- 2 · Open the kit -->
         <div class="step wizard-step" data-step="2">
           <span class="step-badge" aria-hidden="true">2</span>
           <div class="step-body">
-            <h3>Install Xcode</h3>
-            <p class="os-opt" data-os="mojave">Install the Xcode version recommended for your macOS — <strong>Xcode 11.3.1</strong>.</p>
-            <p class="os-opt is-hidden" data-os="bigsur">Install the Xcode version recommended for your macOS — <strong>Xcode 13.2.1</strong>.</p>
-            <p class="os-opt is-hidden" data-os="monterey">Install the Xcode version recommended for your macOS — <strong>Xcode 13.4.1</strong>.</p>
+            <h3>Open the kit</h3>
+            <p>Unzip it and move <strong>Legacy Swift Development Kit</strong> to Applications. It's ad-hoc signed rather than notarised, so right-click it and choose <strong>Open</strong> the first time, or run:</p>
+            <figure class="code">
+              <figcaption class="code-bar">
+                <span class="code-title" title="Terminal">Terminal</span>
+                <button class="btn btn-sm btn-ghost" type="button" data-copy-target="#quarantine">Copy</button>
+              </figcaption>
+              <div class="code-screen" id="quarantine"><pre>xattr -dr com.apple.quarantine "/Applications/Legacy Swift Development Kit.app"</pre></div>
+            </figure>
+            <p class="step-note">On Apple silicon you'll also need Rosetta 2, because the compiler is Intel-only.</p>
             <div class="wiz-confirm">
               <label class="confirm">
                 <input class="confirm-box" type="checkbox">
-                <span>Xcode is installed and open</span>
+                <span>The kit is open</span>
               </label>
             </div>
           </div>
         </div>
 
-        <!-- 3 · Fix Swift Toolchain Paths (badge kept: 4.5) -->
+        <!-- 3 · Install the environment -->
         <div class="step wizard-step" data-step="3">
-          <span class="step-badge" aria-hidden="true">4.5</span>
+          <span class="step-badge" aria-hidden="true">3</span>
           <div class="step-body">
-            <h3>Fix Swift Toolchain Paths</h3>
-            <div class="os-opt" data-os="mojave">
-              <p>Swift 5.1.5:</p>
-              <figure class="code">
-                <figcaption class="code-bar">
-                  <span class="code-title" title="Terminal · Swift 5.1.5">Terminal · Swift 5.1.5</span>
-                  <button class="btn btn-sm btn-ghost" type="button" data-copy-target="#rpath515">Copy</button>
-                </figcaption>
-                <div class="code-screen" id="rpath515"><pre>sudo install_name_tool -add_rpath /Library/Developer/Toolchains/swift-5.1.5-RELEASE.xctoolchain/usr/lib/swift/macosx /Library/Developer/Toolchains/swift-5.1.5-RELEASE.xctoolchain/usr/bin/swift-driver</pre></div>
-              </figure>
-            </div>
-            <div class="os-opt is-hidden" data-os="bigsur">
-              <p>Swift 5.6.3:</p>
-              <figure class="code">
-                <figcaption class="code-bar">
-                  <span class="code-title" title="Terminal · Swift 5.6.3">Terminal · Swift 5.6.3</span>
-                  <button class="btn btn-sm btn-ghost" type="button" data-copy-target="#rpath563">Copy</button>
-                </figcaption>
-                <div class="code-screen" id="rpath563"><pre>sudo install_name_tool -add_rpath /Library/Developer/Toolchains/swift-5.6.3-RELEASE.xctoolchain/usr/lib/swift/macosx /Library/Developer/Toolchains/swift-5.6.3-RELEASE.xctoolchain/usr/bin/swift-driver</pre></div>
-              </figure>
-            </div>
-            <div class="os-opt is-hidden" data-os="monterey">
-              <p>Swift 5.10.1:</p>
-              <figure class="code">
-                <figcaption class="code-bar">
-                  <span class="code-title" title="Terminal · Swift 5.10.1">Terminal · Swift 5.10.1</span>
-                  <button class="btn btn-sm btn-ghost" type="button" data-copy-target="#rpath510">Copy</button>
-                </figcaption>
-                <div class="code-screen" id="rpath510"><pre>sudo install_name_tool -add_rpath /Library/Developer/Toolchains/swift-5.10.1-RELEASE.xctoolchain/usr/lib/swift/macosx /Library/Developer/Toolchains/swift-5.10.1-RELEASE.xctoolchain/usr/bin/swift-driver</pre></div>
-              </figure>
-            </div>
+            <h3>Install the environment</h3>
+            <p class="os-opt" data-os="native">Go to <strong>Environment</strong> and set <strong>Compatibility mode</strong> to <strong>Native</strong>.</p>
+            <p class="os-opt is-hidden" data-os="modern">Go to <strong>Environment</strong> and set <strong>Compatibility mode</strong> to <strong>Modern</strong>.</p>
+            <p>The toolchain manifest is already filled in. Click <strong>Install Environment</strong>. The kit copies Xcode, downloads both toolchains, checks their hashes, and runs the iOS 5 checks.</p>
+            <p class="step-note">Make sure you have about 64 GB free. Your existing Xcode and <code>xcode-select</code> aren't touched.</p>
             <div class="wiz-confirm">
               <label class="confirm">
                 <input class="confirm-box" type="checkbox">
-                <span>I've run the terminal command</span>
+                <span>It says Environment ready</span>
               </label>
             </div>
           </div>
         </div>
 
-        <!-- 4 · Choose your path -->
+        <!-- 4 · Project -->
         <div class="step wizard-step" data-step="4">
-          <span class="step-badge" aria-hidden="true">✳</span>
-          <div class="step-body">
-            <h3>How do you want to set up your project?</h3>
-            <p>Two routes, same destination — both end with your first built IPA.</p>
-            <fieldset class="path-grid">
-              <legend class="visually-hidden">Setup path</legend>
-              <label class="path-card">
-                <svg class="choice-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 9v12"/></svg><span class="path-name">Use the provided templates</span>
-                <span class="path-desc">Start from a ready-made Xcode project. The fastest route to your first app.</span>
-                <input class="path-dot" type="radio" name="wizard-path" value="templates">
-              </label>
-              <label class="path-card">
-                <svg class="choice-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14 5 5 5M4 20l4-1 12-12a2 2 0 0 0-4-4L4 15Z"/></svg><span class="path-name">Set up manually</span>
-                <span class="path-desc">Configure a fresh Xcode project by hand. More steps, full control.</span>
-                <input class="path-dot" type="radio" name="wizard-path" value="manual">
-              </label>
-            </fieldset>
-          </div>
-        </div>
-
-        <!-- 5 · Templates · Install (badge 5) -->
-        <div class="step wizard-step" data-step="5" data-path="templates">
-          <span class="step-badge" aria-hidden="true">5</span>
-          <div class="step-body">
-            <h3>Install Xcode Templates</h3>
-            <figure class="code">
-              <figcaption class="code-bar">
-                <span class="code-title" title="Terminal · Templates">Terminal · Templates</span>
-                <button class="btn btn-sm btn-ghost" type="button" data-copy-target="#templates">Copy</button>
-              </figcaption>
-              <div class="code-screen" id="templates"><pre>mkdir -p ~/Library/Developer/Xcode/Templates/Project\ Templates/Application
-git clone https://github.com/j-w-i/iOS-6-Swift-Xcode-Templates.git /tmp/iOS6SwiftTemplates
-cp -R /tmp/iOS6SwiftTemplates/Templates/Project\ Templates/Application/* ~/Library/Developer/Xcode/Templates/Project\ Templates/Application/
-rm -rf /tmp/iOS6SwiftTemplates</pre></div>
-            </figure>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've installed the templates</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6 · Templates · Select (badge 6) -->
-        <div class="step wizard-step" data-step="6" data-path="templates">
-          <span class="step-badge" aria-hidden="true">6</span>
-          <div class="step-body">
-            <h3>Select Template</h3>
-            <p>Open Xcode → File → New Project → Select <strong>Legacy Swift Application</strong> template and you're good to go.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've created a project from the template</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- 7 · Templates · Build 1 -->
-        <div class="step wizard-step" data-step="7" data-path="templates">
-          <span class="step-badge" aria-hidden="true">1</span>
-          <div class="step-body">
-            <h3>Open the Project in Terminal</h3>
-            <figure class="code">
-              <figcaption class="code-bar">
-                <span class="code-title" title="Terminal">Terminal</span>
-              </figcaption>
-              <div class="code-screen"><pre>cd /path/to/your/project</pre></div>
-            </figure>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I'm in the project directory</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- 8 · Templates · Build 2 -->
-        <div class="step wizard-step" data-step="8" data-path="templates">
-          <span class="step-badge" aria-hidden="true">2</span>
-          <div class="step-body">
-            <h3>Make the Script Runnable</h3>
-            <figure class="code">
-              <figcaption class="code-bar">
-                <span class="code-title" title="Terminal">Terminal</span>
-              </figcaption>
-              <div class="code-screen"><pre>chmod +x ./buildScript.command</pre></div>
-            </figure>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>The build script is executable</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- 9 · Templates · Build 3 -->
-        <div class="step wizard-step" data-step="9" data-path="templates">
-          <span class="step-badge" aria-hidden="true">3</span>
-          <div class="step-body">
-            <h3>Run the Build Script</h3>
-            <p>Drag the build script onto the Terminal</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've dragged the script onto the Terminal</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- 10 · Templates · Build 4 -->
-        <div class="step wizard-step" data-step="10" data-path="templates">
           <span class="step-badge" aria-hidden="true">4</span>
           <div class="step-body">
-            <h3>Name the App</h3>
-            <p>Type your project scheme name after</p>
+            <h3>Open a project</h3>
+            <p>Go to <strong>Projects / Build</strong>. Choose <strong>Create Sample Project…</strong> to start from a working UIKit app, or <strong>Open Project…</strong> for one you already have.</p>
+            <p>Set the minimum iOS version (5.0 to 10) and the architectures (armv7 by default). Each project keeps its settings beside its <code>.xcodeproj</code>.</p>
+            <p class="step-note">To edit code, use <strong>Open Xcode</strong> in the kit and build for <strong>Any iOS Device</strong>.<span class="os-opt is-hidden" data-os="modern"> In Modern mode, don't open the copied Xcode from Finder.</span></p>
             <div class="wiz-confirm">
               <label class="confirm">
                 <input class="confirm-box" type="checkbox">
-                <span>I've typed my scheme name</span>
+                <span>My project is open</span>
               </label>
             </div>
           </div>
         </div>
 
-        <!-- 11 · Templates · Build 5 -->
-        <div class="step wizard-step" data-step="11" data-path="templates">
+        <!-- 5 · Build -->
+        <div class="step wizard-step" data-step="5">
           <span class="step-badge" aria-hidden="true">5</span>
           <div class="step-body">
-            <h3>Choose the Build Folder</h3>
-            <p>Specify build folder (use "build" if unsure)</p>
+            <h3>Build the IPA</h3>
+            <p>Click <strong>Build Unsigned IPA</strong>. The kit archives the app, copies in the Swift 5.1.5 runtime, sets the minimum OS version, and packages the IPA. Each build goes in a new folder with its logs; <strong>Reveal Output</strong> shows it.</p>
+            <p class="step-note">Using storyboards or asset catalogs on a recent macOS? Keep a current Xcode in <code>/Applications</code>. The build uses it for those two tools only.</p>
             <div class="wiz-confirm">
               <label class="confirm">
                 <input class="confirm-box" type="checkbox">
-                <span>I've typed the build folder</span>
+                <span>I have an IPA</span>
               </label>
             </div>
           </div>
         </div>
 
-        <!-- 12 · Manual · 1 -->
-        <div class="step wizard-step has-shot" data-step="12" data-path="manual">
-          <span class="step-badge" aria-hidden="true">1</span>
-          <div class="step-body">
-            <h3>Open the Project Settings</h3>
-            <p>First, make a new Project in Xcode that is storyboard based.</p>
-            <p>Click the info tab in the Project Settings.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've opened the info tab</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: Xcode project Info tab and deployment settings"><img src="GuideImages/ProjPicSetup1.webp" width="3060" height="906" loading="lazy" alt="Xcode project Info tab and deployment settings"></button>
-        </div>
-
-        <!-- 13 · Manual · 2 -->
-        <div class="step wizard-step has-shot" data-step="13" data-path="manual">
-          <span class="step-badge" aria-hidden="true">2</span>
-          <div class="step-body">
-            <h3>Remove the Frameworks</h3>
-            <p>Hover over and click the minus button on the values in the image.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've removed the values</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: Framework entries to remove from project settings"><img src="GuideImages/ProjPicSetup2.webp" width="1616" height="686" loading="lazy" alt="Framework entries to remove from project settings"></button>
-        </div>
-
-        <!-- 14 · Manual · 3 -->
-        <div class="step wizard-step has-shot" data-step="14" data-path="manual">
-          <span class="step-badge" aria-hidden="true">3</span>
-          <div class="step-body">
-            <h3>Open Build Settings</h3>
-            <p>Click the build settings tab.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've opened Build Settings</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: Xcode Build Settings tab"><img src="GuideImages/ProjPicSetup3.webp" width="260" height="96" loading="lazy" alt="Xcode Build Settings tab"></button>
-        </div>
-
-        <!-- 15 · Manual · 4 -->
-        <div class="step wizard-step has-shot" data-step="15" data-path="manual">
-          <span class="step-badge" aria-hidden="true">4</span>
-          <div class="step-body">
-            <h3>Lower the Deployment Target</h3>
-            <p>Scroll down to the iOS Deployment Target setting in Deployment header and click the dropdown menu.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've found the Deployment target</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: iOS Deployment Target setting in Xcode"><img src="GuideImages/ProjPicSetup4.webp" width="2670" height="1604" loading="lazy" alt="iOS Deployment Target setting in Xcode"></button>
-        </div>
-
-        <!-- 16 · Manual · 5 -->
-        <div class="step wizard-step has-shot" data-step="16" data-path="manual">
-          <span class="step-badge" aria-hidden="true">5</span>
-          <div class="step-body">
-            <h3>Set it to 7.0</h3>
-            <p>Scroll down inside that dropdown and click “other”, and type in “7.0”.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've set it to 7.0</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: Deployment target set to 7.0"><img src="GuideImages/ProjPicSetup5.webp" width="2582" height="390" loading="lazy" alt="Deployment target set to 7.0"></button>
-        </div>
-
-        <!-- 17 · Manual · 6 -->
-        <div class="step wizard-step has-shot" data-step="17" data-path="manual">
-          <span class="step-badge" aria-hidden="true">6</span>
-          <div class="step-body">
-            <h3>Delete the Unused Files</h3>
-            <p>Right click and select delete on the two highlighted files.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've deleted the files</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: Unused files selected in the project navigator"><img src="GuideImages/ProjPicSetup6.webp" width="518" height="436" loading="lazy" alt="Unused files selected in the project navigator"></button>
-        </div>
-
-        <!-- 18 · Manual · 7 -->
-        <div class="step wizard-step has-shot" data-step="18" data-path="manual">
-          <span class="step-badge" aria-hidden="true">7</span>
-          <div class="step-body">
-            <h3>Open LaunchScreen</h3>
-            <p>Open the LaunchScreen storyboard.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've opened LaunchScreen</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: LaunchScreen storyboard in the project navigator"><img src="GuideImages/ProjPicSetup7.webp" width="532" height="418" loading="lazy" alt="LaunchScreen storyboard in the project navigator"></button>
-        </div>
-
-        <!-- 19 · Manual · 8 -->
-        <div class="step wizard-step has-shot" data-step="19" data-path="manual">
-          <span class="step-badge" aria-hidden="true">8</span>
-          <div class="step-body">
-            <h3>Add a View Controller</h3>
-            <p>Click “View Controller Scene”.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've added a View Controller</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: View Controller Scene in the storyboard"><img src="GuideImages/ProjPicSetup8.webp" width="1386" height="1114" loading="lazy" alt="View Controller Scene in the storyboard"></button>
-        </div>
-
-        <!-- 20 · Manual · 9 -->
-        <div class="step wizard-step has-shot" data-step="20" data-path="manual">
-          <span class="step-badge" aria-hidden="true">9</span>
-          <div class="step-body">
-            <h3>Switch to Page Layout</h3>
-            <p>On the right, click the page option.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've switched to page layout</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: Page layout option in the storyboard inspector"><img src="GuideImages/ProjPicSetup9.webp" width="516" height="1336" loading="lazy" alt="Page layout option in the storyboard inspector"></button>
-        </div>
-
-        <!-- 21 · Manual · 10 -->
-        <div class="step wizard-step has-shot" data-step="21" data-path="manual">
-          <span class="step-badge" aria-hidden="true">10</span>
-          <div class="step-body">
-            <h3>Disable Safe Area Guides</h3>
-            <p>Uncheck the “Use Safe Area Layout Guides” option.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've unchecked Safe Area guides</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: Use Safe Area Layout Guides checkbox"><img src="GuideImages/ProjPicSetup10.webp" width="510" height="260" loading="lazy" alt="Use Safe Area Layout Guides checkbox"></button>
-        </div>
-
-        <!-- 22 · Manual · 11 -->
-        <div class="step wizard-step has-shot" data-step="22" data-path="manual">
-          <span class="step-badge" aria-hidden="true">11</span>
-          <div class="step-body">
-            <h3>Open the AppDelegate</h3>
-            <p>Go to the AppDelegate file.</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've opened the AppDelegate</span>
-              </label>
-            </div>
-          </div>
-          <button class="shot" type="button" aria-label="Enlarge screenshot: AppDelegate file in the project navigator"><img src="GuideImages/ProjPicSetup11.webp" width="508" height="340" loading="lazy" alt="AppDelegate file in the project navigator"></button>
-        </div>
-
-        <!-- 23 · Manual · 12 -->
-        <div class="step wizard-step code-step" data-step="23" data-path="manual">
-          <span class="step-badge" aria-hidden="true">12</span>
-          <div class="step-body">
-            <h3>Paste the New Code</h3>
-            <p>Copy the code, select everything in AppDelegate.swift with Cmd+A, then paste with Cmd+V.</p>
-            <figure class="code">
-              <figcaption class="code-bar">
-                <span class="code-title" title="AppDelegate.swift">AppDelegate.swift</span>
-                <button class="btn btn-sm btn-ghost" type="button" data-copy-target="#appdelegate">Copy Code</button>
-              </figcaption>
-              <div class="code-screen" id="appdelegate"><pre><span class="tok-com">// AppDelegate.swift</span>
-<span class="tok-kw">import</span> <span class="tok-type">UIKit</span>
-
-<span class="tok-kw">@main</span>
-<span class="tok-kw">class</span> <span class="tok-type">AppDelegate</span>: <span class="tok-type">UIResponder</span>, <span class="tok-type">UIApplicationDelegate</span> {
-
-    <span class="tok-kw">var</span> window: <span class="tok-type">UIWindow</span>?  <span class="tok-com">// Needed for apps not using SceneDelegate</span>
-
-    <span class="tok-kw">func</span> application(
-        _ application: <span class="tok-type">UIApplication</span>,
-        didFinishLaunchingWithOptions launchOptions:
-            [<span class="tok-type">UIApplication.LaunchOptionsKey</span>: <span class="tok-type">Any</span>]?
-    ) -&gt; <span class="tok-type">Bool</span> {
-
-        <span class="tok-com">// Create a UIWindow manually</span>
-        window = <span class="tok-type">UIWindow</span>(frame: <span class="tok-type">UIScreen</span>.main.bounds)
-        window?.rootViewController = <span class="tok-type">ViewController</span>() <span class="tok-com">// Set initial ViewController</span>
-        window?.makeKeyAndVisible()
-
-        <span class="tok-kw">return</span> <span class="tok-kw">true</span>
-    }
-}</pre></div>
-            </figure>
-            <details class="wiz-reference">
-              <summary>View Xcode reference</summary>
-              <button class="shot reference-shot" type="button" aria-label="Enlarge screenshot: AppDelegate code in Xcode"><img src="GuideImages/ProjPicSetup12.webp" width="3054" height="1034" loading="lazy" alt="AppDelegate code in Xcode"></button>
-            </details>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've pasted the code</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- 24 · Manual · 13 -->
-        <div class="step wizard-step" data-step="24" data-path="manual">
-          <span class="step-badge" aria-hidden="true">13</span>
-          <div class="step-body">
-            <h3>Build Your App</h3>
-            <p>To build, navigate to your project directory in the terminal, drag my script onto the terminal and then type your app's Scheme name plus the directory you want it to put your ipa in (just put "build" if unsure).</p>
-            <div class="wiz-confirm">
-              <label class="confirm">
-                <input class="confirm-box" type="checkbox">
-                <span>I've built the app</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- 25 · Done -->
-        <div class="step wizard-step" data-step="25">
+        <!-- 6 · Done -->
+        <div class="step wizard-step" data-step="6">
           <span class="step-badge" aria-hidden="true">✓</span>
           <div class="step-body">
             <h3>Enjoy your IPA!</h3>
-            <p>That's the whole setup — the toolchain, the project, and your first build. Every app from here on shares these steps.</p>
+            <p>It's unsigned, so sign and install it the way you normally sideload to that device. Then test it on the device itself, because a successful build doesn't prove it will launch.</p>
+            <p class="step-note">Prefer Terminal? Every build is an editable shell script: <strong>Reveal Saved Command</strong> shows it. The toolchains are also on <a href="https://github.com/j-w-i/Legacy-Swift-Toolchain-Builds" target="_blank" rel="noopener">GitHub</a>.</p>
           </div>
         </div>
 
       </div>
 
+
       <div class="wiz-controls">
         <button class="btn btn-ghost" id="wiz-back" type="button" disabled>Back</button>
-        <span class="wiz-progress" id="wiz-progress" aria-hidden="true"><span class="wiz-ticks" id="wiz-ticks"></span><span id="wiz-progress-label">Setup · 1 of 4</span></span>
+        <span class="wiz-progress" id="wiz-progress" aria-hidden="true"><span class="wiz-ticks" id="wiz-ticks"></span><span id="wiz-progress-label">Setup · 1 of 3</span></span>
         <button class="btn btn-primary" id="wiz-next" type="button" disabled><span class="btn-ic" aria-hidden="true"></span><span id="wiz-next-label">Next step</span></button>
         <button class="btn btn-ghost" id="wiz-restart" type="button" hidden>Start over</button>
       </div>
